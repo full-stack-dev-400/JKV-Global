@@ -3,18 +3,25 @@
 }
 
 /* optional per-section accent override */
+
 .container {
   --vt-accent: var(--brand);
 }
 
+/* =========================================================
+   HEADER
+========================================================= */
+
 .header {
   text-align: center;
+
   padding-top: 16px;
   padding-bottom: 24px;
 }
 
 .heading {
   margin: 0;
+
   padding-bottom: 12px;
 }
 
@@ -24,19 +31,31 @@
 
 .subtext {
   max-width: 860px;
+
   margin: 0 auto;
+
   color: var(--text-body);
 }
 
-/* Shell */
+/* =========================================================
+   SHELL
+========================================================= */
+
 .shell {
   display: flex;
+
   flex-direction: column;
+
   border-radius: 32px;
+
   overflow: hidden;
-  background: #101711;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  background: #07110f;
+
+  border: 1px solid rgba(32, 201, 151, 0.12);
+
   box-shadow: var(--shadow-md);
+
   isolation: isolate;
 }
 
@@ -46,24 +65,39 @@
   }
 }
 
-/* Left rail */
+/* =========================================================
+   LEFT RAIL
+========================================================= */
+
 .rail {
   position: relative;
+
   width: 100%;
+
   flex: 0 0 auto;
+
   padding: 16px;
-  background: #101711;
+
+  background: #07110f;
+
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 @media (min-width: 768px) {
   .rail {
     width: 320px;
+
     padding: 24px;
+
     border-bottom: 0;
+
     border-right: 1px solid rgba(255, 255, 255, 0.08);
   }
 }
+
+/* =========================================================
+   RAIL GLOW
+========================================================= */
 
 .railGlowTop,
 .railGlowBottom {
@@ -72,42 +106,71 @@
 
 .railGlowTop {
   width: 280px;
+
   height: 280px;
+
   top: -70px;
+
   left: -70px;
-  background: rgba(77, 110, 85, 0.14);
+
+  background: rgba(32, 201, 151, 0.14);
 }
 
 .railGlowBottom {
   width: 220px;
+
   height: 220px;
+
   bottom: -60px;
+
   left: -60px;
-  background: rgba(135, 171, 147, 0.1);
+
+  background: rgba(32, 201, 151, 0.1);
 }
 
-/* Tabs list */
+/* =========================================================
+   TABS LIST
+========================================================= */
+
 .tabList {
   display: flex;
+
   flex-direction: column;
+
   gap: 12px;
+
   margin-top: 8px;
 }
 
-/* Tab button */
+/* =========================================================
+   TAB BUTTON
+========================================================= */
+
 .tabBtn {
   width: 100%;
+
   text-align: left;
+
   border-radius: 999px;
+
   padding: 14px 18px;
+
   border: 1px solid rgba(255, 255, 255, 0.1);
+
   background: rgba(255, 255, 255, 0.02);
+
   color: #eaf0f2;
+
   cursor: pointer;
+
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
+
   gap: 14px;
+
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
@@ -118,25 +181,45 @@
 
 .tabBtn:hover {
   transform: translateY(-1px);
+
   box-shadow: var(--shadow-sm);
-  border-color: rgba(135, 171, 147, 0.28);
-  background: rgba(255, 255, 255, 0.04);
+
+  border-color: rgba(32, 201, 151, 0.35);
+
+  background: rgba(32, 201, 151, 0.06);
 }
 
 .tabBtn:focus-visible {
   outline: 2px solid color-mix(in srgb, var(--vt-accent) 45%, transparent);
+
   outline-offset: 2px;
 }
 
+/* JKV ACTIVE TAB */
+
 .tabBtnActive {
-  background: #4d6e55;
-  border-color: #4d6e55;
-  color: #fff;
+  background: #20c997;
+
+  border-color: #20c997;
+
+  color: #ffffff;
 }
 
-/* Label */
+.tabBtnActive:hover {
+  background: #18b889;
+
+  border-color: #18b889;
+
+  color: #ffffff;
+}
+
+/* =========================================================
+   LABEL
+========================================================= */
+
 .tabLabel {
   font-weight: 700;
+
   font-size: 14px;
 }
 
@@ -146,17 +229,29 @@
   }
 }
 
-/* Arrow pill */
+/* =========================================================
+   ARROW
+========================================================= */
+
 .tabArrow {
   width: 36px;
+
   height: 36px;
+
   border-radius: 999px;
+
   display: grid;
+
   place-items: center;
+
   flex: 0 0 auto;
+
   background: rgba(255, 255, 255, 0.05);
+
   border: 1px solid rgba(255, 255, 255, 0.1);
+
   color: #eaf0f2;
+
   transition:
     transform 0.2s ease,
     background 0.2s ease,
@@ -169,18 +264,27 @@
 }
 
 .tabArrowActive {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.12);
+
+  border-color: rgba(255, 255, 255, 0.24);
+
   color: #ffffff;
 }
 
-/* Right panel */
+/* =========================================================
+   RIGHT PANEL
+========================================================= */
+
 .panelWrap {
   position: relative;
+
   flex: 1;
+
   min-width: 0;
+
   padding: 16px;
-  background: #101711;
+
+  background: #07110f;
 }
 
 @media (min-width: 768px) {
@@ -191,18 +295,22 @@
 
 .panelInner {
   height: 100%;
+
   border-radius: 26px;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(77, 110, 85, 0.08) 0%,
-      rgba(16, 23, 17, 1) 32%,
-      rgba(16, 23, 17, 1) 100%
-    );
+
+  background: linear-gradient(
+    180deg,
+    rgba(32, 201, 151, 0.08) 0%,
+    rgba(7, 17, 15, 1) 32%,
+    rgba(7, 17, 15, 1) 100%
+  );
+
   border: 1px solid rgba(255, 255, 255, 0.08);
+
   box-shadow:
     0 10px 30px rgba(0, 0, 0, 0.22),
     inset 0 1px 0 rgba(255, 255, 255, 0.03);
+
   padding: 16px;
 }
 
@@ -212,8 +320,13 @@
   }
 }
 
+/* =========================================================
+   PANEL
+========================================================= */
+
 .panel {
   display: grid;
+
   gap: 18px;
 }
 
@@ -223,8 +336,11 @@
 
 .panelTitle {
   margin: 0;
+
   font-weight: 800;
+
   color: #ffffff;
+
   font-size: 24px;
 }
 
@@ -236,25 +352,41 @@
 
 .panelDesc {
   margin: 10px 0 0;
+
   color: rgba(234, 240, 242, 0.78);
+
   font-size: 16px;
+
   line-height: 1.65;
 }
 
-/* Media card */
+/* =========================================================
+   MEDIA CARD
+========================================================= */
+
 .mediaCard {
   border-radius: 18px;
+
   overflow: hidden;
-  background: #0f1510;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  background: #06110e;
+
+  border: 1px solid rgba(32, 201, 151, 0.1);
+
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
 }
 
-/* Fit image helper */
+/* =========================================================
+   FIT IMAGE
+========================================================= */
+
 .fitMedia {
   position: relative;
+
   width: 100%;
+
   aspect-ratio: 16 / 9;
+
   overflow: hidden;
 }
 
@@ -262,7 +394,10 @@
   object-fit: cover;
 }
 
-/* CTA */
+/* =========================================================
+   CTA
+========================================================= */
+
 .ctaRow {
   margin-top: 6px;
 }
@@ -273,7 +408,9 @@
 
 .ctaIcon {
   display: inline-block;
+
   margin-left: 6px;
+
   transition: transform 0.2s ease;
 }
 

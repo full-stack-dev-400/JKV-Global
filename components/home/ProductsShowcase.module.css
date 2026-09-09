@@ -1,15 +1,24 @@
 .section {
   position: relative;
+
   isolation: isolate;
+
   overflow: hidden;
 }
 
-/* Background waves */
+/* =========================================================
+   BACKGROUND WAVES
+========================================================= */
+
 .bgWaves {
   position: absolute;
+
   inset: 0;
+
   z-index: -20;
+
   pointer-events: none;
+
   overflow: hidden;
 }
 
@@ -19,17 +28,27 @@
 
 .bgWavesImg {
   object-fit: cover;
+
   opacity: 0.8;
 }
 
-/* Left decorative image (hidden on mobile) */
+/* =========================================================
+   LEFT DECORATIVE IMAGE
+========================================================= */
+
 .discoverWrap {
   pointer-events: none;
+
   position: absolute;
+
   inset-block: 0;
+
   left: 40px;
+
   z-index: -10;
+
   display: none;
+
   align-items: center;
 }
 
@@ -41,15 +60,20 @@
 
 .discoverInner {
   position: relative;
+
   width: 150px;
+
   height: 300px;
+
   transform: translate(-40px, -60px);
 }
 
 @media (min-width: 768px) {
   .discoverInner {
     width: 170px;
+
     height: 320px;
+
     transform: translate(-64px, -60px);
   }
 }
@@ -57,6 +81,7 @@
 @media (min-width: 1024px) {
   .discoverInner {
     width: 220px;
+
     height: 360px;
   }
 }
@@ -64,29 +89,42 @@
 @media (min-width: 1280px) {
   .discoverInner {
     width: 320px;
+
     height: 500px;
+
     transform: translate(-40px, 0);
   }
 }
 
 .discoverImg {
   object-fit: contain;
+
   filter: drop-shadow(0 18px 45px rgba(0, 0, 0, 0.25));
 }
 
+/* =========================================================
+   CONTAINER
+========================================================= */
+
 .container {
   position: relative;
+
   z-index: 10;
 }
 
-/* Heading */
+/* =========================================================
+   HEADING
+========================================================= */
+
 .header {
   text-align: center;
+
   margin-bottom: 20px;
 }
 
 .heading {
   margin: 0;
+
   padding-bottom: 12px;
 }
 
@@ -96,60 +134,94 @@
 
 .lead {
   max-width: 860px;
+
   margin: 0 auto;
+
   color: var(--text-body);
 }
 
-/* Tabs */
+/* =========================================================
+   TABS
+========================================================= */
+
 .tabs {
   position: relative;
+
   z-index: 20;
+
   display: flex;
+
   flex-wrap: wrap;
+
   justify-content: center;
+
   gap: 12px;
+
   margin-top: 14px;
+
   margin-bottom: 18px;
 }
 
 .tab {
   display: inline-flex;
+
   align-items: center;
+
   gap: 10px;
 
   border-radius: 14px;
+
   padding: 12px 18px;
 
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+
   background: color-mix(in srgb, var(--surface) 70%, transparent);
+
   -webkit-backdrop-filter: var(--glass-blur);
+
   backdrop-filter: var(--glass-blur);
 
   color: var(--text);
+
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease,
-    background 0.2s ease, color 0.2s ease;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
 }
 
 .tab:hover {
   transform: translateY(-2px);
+
   border-color: color-mix(in srgb, var(--brand) 45%, var(--border));
+
+  background: color-mix(in srgb, var(--brand-soft) 45%, var(--surface));
+
   box-shadow: var(--shadow-sm);
 }
 
 .tabActive {
   border-color: color-mix(in srgb, var(--brand) 70%, var(--border));
+
+  background: color-mix(in srgb, var(--brand) 8%, var(--surface));
+
   color: var(--brand);
+
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 14%, transparent);
 }
 
 .tabIcon {
   object-fit: contain;
+
   filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.12));
 }
 
 .tabText {
   font-weight: 700;
+
   font-size: 14px;
 }
 
@@ -159,12 +231,17 @@
   }
 }
 
-/* Content */
+/* =========================================================
+   CONTENT
+========================================================= */
+
 .content {
   position: relative;
+
   z-index: 10;
 
   max-width: 920px;
+
   margin: 26px auto 0;
 
   padding: 0 16px;
@@ -175,37 +252,49 @@
     padding: 0 24px;
   }
 }
+
 @media (min-width: 768px) {
   .content {
     padding: 0 48px;
+
     margin-top: 56px;
   }
 }
 
 .grid {
   display: grid;
+
   grid-template-columns: 1fr;
+
   align-items: center;
+
   gap: 26px;
 }
 
 @media (min-width: 768px) {
   .grid {
     grid-template-columns: 7fr 5fr;
+
     gap: 36px;
   }
 }
 
-/* Put image first on mobile (match your current order) */
+/* =========================================================
+   MEDIA
+========================================================= */
+
 .mediaCol {
   order: 1;
+
   display: flex;
+
   justify-content: center;
 }
 
 @media (min-width: 768px) {
   .mediaCol {
     order: 2;
+
     justify-content: flex-end;
   }
 }
@@ -217,72 +306,99 @@
 @media (min-width: 768px) {
   .textCol {
     order: 1;
+
     padding-right: 16px;
   }
 }
 
-/* Media frame responsive sizes */
+/* =========================================================
+   MEDIA FRAME
+========================================================= */
+
 .mediaFrame {
   position: relative;
+
   width: 160px;
+
   height: 160px;
 }
 
 @media (min-width: 640px) {
   .mediaFrame {
     width: 190px;
+
     height: 190px;
   }
 }
+
 @media (min-width: 768px) {
   .mediaFrame {
     width: 200px;
+
     height: 200px;
   }
 }
+
 @media (min-width: 1024px) {
   .mediaFrame {
     width: 280px;
+
     height: 280px;
   }
 }
+
 @media (min-width: 1280px) {
   .mediaFrame {
     width: 320px;
+
     height: 320px;
   }
 }
 
+/* JKV green glow */
+
 .radial {
   position: absolute;
+
   inset: 0;
+
   z-index: -1;
+
   pointer-events: none;
+
   background: radial-gradient(
     ellipse at center,
-    rgba(16, 23, 17, 0.18),
-    rgba(16, 23, 17, 0.06) 55%,
+    rgba(32, 201, 151, 0.17),
+    rgba(6, 79, 73, 0.07) 55%,
     transparent 75%
   );
 }
 
 .mediaMotion {
   position: absolute;
+
   inset: 0;
 }
 
 .mediaImg {
   object-fit: contain;
+
   filter: drop-shadow(0 18px 45px rgba(0, 0, 0, 0.28));
 }
 
-/* Text styles (token-based) */
+/* =========================================================
+   TEXT
+========================================================= */
+
 .title {
   margin: 0;
+
   font-weight: 900;
+
   color: var(--brand);
 
   font-size: 28px;
+
   line-height: 1.05;
 }
 
@@ -291,16 +407,19 @@
     font-size: 34px;
   }
 }
+
 @media (min-width: 768px) {
   .title {
     font-size: 42px;
   }
 }
+
 @media (min-width: 1024px) {
   .title {
     font-size: 52px;
   }
 }
+
 @media (min-width: 1280px) {
   .title {
     font-size: 60px;
@@ -309,10 +428,13 @@
 
 .blurb {
   margin-top: 12px;
+
   max-width: 62ch;
+
   color: var(--text-body);
 
   font-size: 14px;
+
   line-height: 1.65;
 }
 
@@ -321,61 +443,89 @@
     font-size: 15px;
   }
 }
+
 @media (min-width: 768px) {
   .blurb {
     font-size: 16px;
   }
 }
 
-/* Arrows */
+/* =========================================================
+   ARROWS
+========================================================= */
+
 .prev,
 .next {
   position: absolute;
+
   top: 50%;
+
   transform: translateY(-50%);
 
   width: 40px;
+
   height: 40px;
+
   border-radius: 999px;
 
   border: 1px solid var(--border);
+
   background: color-mix(in srgb, var(--surface) 75%, transparent);
+
   -webkit-backdrop-filter: var(--glass-blur);
+
   backdrop-filter: var(--glass-blur);
 
   display: grid;
+
   place-items: center;
 
   cursor: pointer;
+
   color: var(--text);
+
   font-size: 22px;
+
   font-weight: 800;
 
-  transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease,
-    box-shadow 0.2s ease, background 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
 
 .prev:hover,
 .next:hover {
   border-color: color-mix(in srgb, var(--brand) 55%, var(--border));
+
   color: var(--brand);
+
+  background: color-mix(in srgb, var(--brand) 8%, var(--surface));
+
   box-shadow: var(--shadow-sm);
 }
 
-/* Position like your Tailwind setup */
+/* =========================================================
+   ARROW POSITIONS
+========================================================= */
+
 .prev {
   left: 8px;
 }
+
 .next {
   right: 8px;
 }
 
 @media (min-width: 768px) {
   .prev {
-    left: 0px;
+    left: 0;
   }
+
   .next {
-    right: 0px;
+    right: 0;
   }
 }
 
@@ -383,6 +533,7 @@
   .prev {
     left: -40px;
   }
+
   .next {
     right: -40px;
   }
@@ -392,26 +543,35 @@
   .prev {
     left: -56px;
   }
+
   .next {
     right: -56px;
   }
 }
 
-/* CTA */
+/* =========================================================
+   CTA
+========================================================= */
+
 .ctaRow {
   margin-top: 32px;
+
   display: flex;
+
   justify-content: center;
 }
 
 .ctaBtn {
-  /* use global .button styles */
   width: auto;
+
   gap: 10px;
+
+  white-space: nowrap;
 }
 
 .ctaArrow {
   display: inline-block;
+
   transition: transform 0.2s ease;
 }
 

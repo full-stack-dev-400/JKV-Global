@@ -8,7 +8,7 @@ export const metadata = {
 export const dynamic = "force-static";
 
 import Hero from "@/components/home/hero";
-import MarqueeTicker from '@/components/home/MarqueeTicker';
+import MarqueeTicker from "@/components/home/MarqueeTicker";
 import Features02 from "@/components/home/features-02";
 import Features03 from "@/components/features-03";
 import TestimonialsCarousel from "@/components/home/testimonials-carousel";
@@ -22,15 +22,11 @@ import ExpandCards from "@/components/home/ExpandCards";
 import DiscoverOpportunities from "@/components/home/DiscoverOpportunities";
 import { PlatformsTabs } from "@/components/VerticalTabs";
 import EconomicCalendar from "@/components/home/EconomicCalendar";
-import HowToRegister from "@/components/market/HowToRegister"
+import HowToRegister from "@/components/market/HowToRegister";
 import BalanceGuard from "@/components/home/BalanceGuard";
 import HowItWorks from "@/components/home/HowItWorks";
 import TrustedBrokerSection from "@/components/TrustedBrokerSection";
 import AccountTiers from "@/components/home/AccountTiers";
-
-
-
-
 
 //  slider + product images
 import ProductHeroSlider from "@/components/ProductHeroSlider";
@@ -38,7 +34,7 @@ import DeviceA from "@/public/images/Terminalmt5.webp";
 import DeviceB from "@/public/images/CRM.webp";
 import HoverGlowCard from "@/components/registrationsteps";
 import ProductsShowcase from "@/components/home/ProductsShowcase";
-
+import { FinalConversion } from "@/components/home/FinalConversion";
 
 //  define slides once at module scope
 const slides = [
@@ -46,19 +42,16 @@ const slides = [
     id: "a",
     title: "Stonefort platforms",
     headline: "MetaTrader 5",
-    copy:
-      "Experience seamless trading with Stonefort’s MetaTrader 5 platform designed for speed, precision, and access to global markets.",
+    copy: "Experience seamless trading with Stonefort’s MetaTrader 5 platform designed for speed, precision, and access to global markets.",
     img: DeviceA,
   },
   {
     id: "b",
     title: "Stonefort CRM",
     headline: "CRM",
-    copy:
-      "Stonefort CRM gives traders secure access to deposits, withdrawals, and account management everything in one simple dashboard.",
+    copy: "Stonefort CRM gives traders secure access to deposits, withdrawals, and account management everything in one simple dashboard.",
     img: DeviceB,
   },
-
 ];
 
 export default function Home() {
@@ -70,16 +63,16 @@ export default function Home() {
       <ProductsShowcase />
       <EconomicCalendar />
       <PlatformsTabs />
-      <PricingBoxes />
+      {/* <PricingBoxes /> */}
       {/* <AccountTiers /> */}
       {/* <HoverGlowCard />  */}
       <HowToRegister />
-      <Payment />  
-      <DiscoverOpportunities />
+      <Payment />
+      {/* <DiscoverOpportunities /> */}
       <BalanceGuard />
       <HowItWorks />
-      <TrustedBrokerSection />
-
+      <FinalConversion />
+      {/* <TrustedBrokerSection /> */}
 
       {/* <TestimonialsCarousel /> */}
       {/* <Features02 /> */}

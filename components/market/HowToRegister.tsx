@@ -5,7 +5,8 @@ import Image from "next/image";
 import asImg from "@/public/images/registerrightimg.webp";
 import styles from "./HowToRegister.module.css";
 
-/* ---------------- ROLLING NUMBER (unchanged) ---------------- */
+/* ---------------- ROLLING NUMBER (UNCHANGED) ---------------- */
+
 const RollingNumber = ({
   initial,
   minStep = 20,
@@ -54,6 +55,7 @@ const RollingNumber = ({
 };
 
 /* ---------------- MAIN SECTION ---------------- */
+
 export default function HowToRegister() {
   const steps = [
     {
@@ -86,7 +88,7 @@ export default function HowToRegister() {
           <h2 className={`title ${styles.title}`}>Ready to trade smarter?</h2>
 
           <p className={`text ${styles.lead}`}>
-            Move to Stonefort and become part of a global community of active
+            Move to JKV Global and become part of a global community of active
             traders. Apply in minutes with a fast, streamlined onboarding
             experience.
           </p>
@@ -98,6 +100,7 @@ export default function HowToRegister() {
 
                 <div className={styles.stepBody}>
                   <h4 className={styles.stepTitle}>{s.title}</h4>
+
                   <p className={styles.stepText}>{s.text}</p>
                 </div>
               </div>
@@ -114,7 +117,7 @@ export default function HowToRegister() {
         <div className={styles.imageWrapper}>
           <Image
             src={asImg}
-            alt="Stonefort onboarding"
+            alt="JKV Global onboarding"
             className={styles.image}
             fill
             priority
@@ -123,43 +126,71 @@ export default function HowToRegister() {
           {/* ===== STEP 1 – REGISTER ===== */}
           <div className={`${styles.statCard} ${styles.card1}`}>
             <div className={styles.stepCardHeader}>Step 1</div>
-            <svg className={styles.stepIconSvg} viewBox="0 0 24 24" aria-hidden="true">
+
+            <svg
+              className={styles.stepIconSvg}
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
               <rect x="3" y="3" width="18" height="18" rx="3" ry="3" />
+
               <path d="M7 8l2 2l4 -4" />
               <path d="M7 12l2 2l4 -4" />
               <path d="M7 16l2 2l4 -4" />
             </svg>
+
             <div className={styles.stepCardTitle}>Register</div>
           </div>
 
           {/* ===== STEP 2 – ANSWER ===== */}
           <div className={`${styles.statCard} ${styles.card2}`}>
             <div className={styles.stepCardHeader}>Step 2</div>
-            <svg className={styles.stepIconSvg} viewBox="0 0 24 24" aria-hidden="true">
+
+            <svg
+              className={styles.stepIconSvg}
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
               <rect x="3" y="6" width="18" height="12" rx="2" ry="2" />
+
               <rect x="7" y="11" width="10" height="2" rx="1" ry="1" />
             </svg>
+
             <div className={styles.stepCardTitle}>Answer</div>
           </div>
 
           {/* ===== STEP 3 – VERIFY ===== */}
           <div className={`${styles.statCard} ${styles.card3}`}>
             <div className={styles.stepCardHeader}>Step 3</div>
-            <svg className={styles.stepIconSvg} viewBox="0 0 24 24" aria-hidden="true">
+
+            <svg
+              className={styles.stepIconSvg}
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
               <path d="M12 3l8 4v5c0 5-3 9-8 10c-5 -1 -8 -5 -8 -10v-5z" />
+
               <path d="M9 12l2 2l4 -4" />
             </svg>
+
             <div className={styles.stepCardTitle}>Verify</div>
           </div>
 
           {/* ===== STEP 4 – FUND ===== */}
           <div className={`${styles.statCard} ${styles.card4}`}>
             <div className={styles.stepCardHeader}>Step 4</div>
-            <svg className={styles.stepIconSvg} viewBox="0 0 24 24" aria-hidden="true">
+
+            <svg
+              className={styles.stepIconSvg}
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
               <rect x="3" y="6" width="18" height="12" rx="2" ry="2" />
+
               <path d="M7 10l2 2l4 -4" />
               <path d="M7 14l2 2l4 -4" />
             </svg>
+
             <div className={styles.stepCardTitle}>Fund</div>
           </div>
         </div>

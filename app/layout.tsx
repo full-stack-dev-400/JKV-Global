@@ -1,7 +1,6 @@
 import "./css/style.css";
 import "./css/global.css";
-import Header from "@/components/ui/header";
-import Footer from "@/components/ui/footer";
+
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import ChatWidget from "@/components/chat/ChatWidget";
 
@@ -14,21 +13,24 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Stonefort Securities",
-  description: "Stonefort securities",
+  title: "JKV Global",
+  description:
+    "JKV Global provides access to global financial markets through professional trading platforms and account services.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en" className={inter.variable}>
       <body>
         <ThemeProvider>
-          <Header />
-          <main className="grow">{children}</main>
-          <Footer />
-        </ThemeProvider>
+          {children}
 
-        <ChatWidget />
+          <ChatWidget />
+        </ThemeProvider>
       </body>
     </html>
   );

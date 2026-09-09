@@ -1,140 +1,210 @@
 .root {
   width: 100%;
+
   overflow: hidden;
 }
 
-/* viewport uses CSS vars set from TS */
+/* =========================================================
+   VIEWPORT
+========================================================= */
+
 .viewport {
   position: relative;
-  height: var(--sf-h, 150px);
+
+  height: var(--jkv-h, 150px);
+
   overflow: hidden;
 }
 
-/* Row */
+/* =========================================================
+   ROW
+========================================================= */
+
 .row {
   display: inline-flex;
+
   align-items: center;
+
   white-space: nowrap;
 }
 
-/* Each item */
+/* =========================================================
+   ITEM
+========================================================= */
+
 .item {
   flex: 0 0 auto;
+
   min-width: 220px;
 
   display: flex;
+
   flex-direction: column;
+
   justify-content: center;
+
   text-align: center;
 
   padding: 16px 40px;
 
-  /* theme-aware separator */
-  border-left: 1px solid var(--sf-sep, var(--border));
+  border-left: 1px solid var(--jkv-sep, var(--border));
 }
+
+/* =========================================================
+   ICON
+========================================================= */
 
 .icon {
   margin: 0 auto 8px;
+
   height: auto;
+
   user-select: none;
+
   pointer-events: none;
 }
 
-/* label/value use global tokens (no fixed #000/#fff) */
+/* =========================================================
+   TEXT
+========================================================= */
+
 .label {
   display: block;
+
   font-size: 16px;
+
   font-weight: 700;
+
   text-transform: uppercase;
+
   letter-spacing: 0.3px;
+
   line-height: 1.25;
+
   color: var(--text);
+
   white-space: normal;
 }
 
 .value {
   margin-top: 4px;
+
   font-size: 14px;
+
   font-weight: 600;
+
   color: var(--brand);
+
   white-space: nowrap;
 }
 
-/* Track */
+/* =========================================================
+   TRACK
+========================================================= */
+
 .track {
   position: absolute;
+
   top: 50%;
+
   transform: translateY(-50%);
+
   display: inline-flex;
+
   align-items: center;
+
   white-space: nowrap;
+
   will-change: transform;
 }
 
-/* Animations */
+/* =========================================================
+   ANIMATION
+========================================================= */
+
 .run.trackA {
-  animation: slideA var(--sf-speed, 250s) linear infinite;
+  animation: slideA var(--jkv-speed, 250s) linear infinite;
 }
 
 .run.trackB {
-  animation: slideB var(--sf-speed, 250s) linear infinite;
+  animation: slideB var(--jkv-speed, 250s) linear infinite;
 }
 
-/* A: 0 -> -rowPx */
+/* First row */
+
 @keyframes slideA {
   from {
-    transform: translateY(-50%) translateX(0px);
+    transform: translateY(-50%) translateX(0);
   }
+
   to {
-    transform: translateY(-50%) translateX(calc(var(--rowpx) * -1));
+    transform: translateY(-50%) translateX(calc(var(--jkv-rowpx) * -1));
   }
 }
 
-/* B: +rowPx -> 0 */
+/* Second row */
+
 @keyframes slideB {
   from {
-    transform: translateY(-50%) translateX(var(--rowpx));
+    transform: translateY(-50%) translateX(var(--jkv-rowpx));
   }
+
   to {
-    transform: translateY(-50%) translateX(0px);
+    transform: translateY(-50%) translateX(0);
   }
 }
 
-/* Add subtle seam on trackB start */
+/* =========================================================
+   TRACK SEAM
+========================================================= */
+
 .trackB::before {
   content: "";
+
   position: absolute;
+
   left: 0;
+
   top: 0;
+
   bottom: 0;
+
   width: 1px;
-  background: var(--sf-sep, var(--border));
+
+  background: var(--jkv-sep, var(--border));
+
   opacity: 0.9;
 }
 
-/* Pause on hover */
+/* =========================================================
+   PAUSE ON HOVER
+========================================================= */
+
 .viewport:hover .run {
   animation-play-state: paused;
 }
 
-/* Edge fades (theme-aware using --bg) */
+/* =========================================================
+   EDGE FADES
+========================================================= */
+
 .fade {
   position: absolute;
+
   top: 0;
+
   bottom: 0;
+
   width: 250px;
+
   pointer-events: none;
+
+  z-index: 2;
 }
 
-@media (max-width: 640px) {
-  .fade {
-    width: 90px;
-  }
-}
-
-/* left fade */
 .left {
   left: 0;
+
   background: linear-gradient(
     to right,
     var(--bg) 0%,
@@ -144,9 +214,9 @@
   );
 }
 
-/* right fade */
 .right {
   right: 0;
+
   background: linear-gradient(
     to left,
     var(--bg) 0%,
@@ -156,11 +226,65 @@
   );
 }
 
-/* Hidden measurer */
+/* =========================================================
+   HIDDEN MEASURER
+========================================================= */
+
 .measure {
   position: absolute;
+
   visibility: hidden;
+
   pointer-events: none;
+
   left: -99999px;
+
   top: -99999px;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 640px) {
+  .fade {
+    width: 90px;
+  }
+
+  .item {
+    min-width: 200px;
+
+    padding: 16px 28px;
+  }
+
+  .label {
+    font-size: 14px;
+  }
+
+  .value {
+    font-size: 13px;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .run.trackA,
+  .run.trackB {
+    animation: none;
+  }
+
+  .trackA {
+    position: relative;
+
+    top: auto;
+
+    transform: none;
+  }
+
+  .trackB {
+    display: none;
+  }
 }

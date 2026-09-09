@@ -3,16 +3,13 @@
 import styles from "./HowItWorks.module.css";
 import OnboardingDashboard from "@/components/metals/OnboardingDashboard";
 
-
 export default function HowItWorks() {
   return (
     <section className={styles.section}>
       <div className={`container ${styles.inner}`}>
         {/* =================== Heading =================== */}
         <header className={styles.header}>
-          <h2 className={`title ${styles.heading}`}>
-            How It Works
-          </h2>
+          <h2 className={`title ${styles.heading}`}>How It Works</h2>
 
           <p className={styles.kicker}>
             Getting Started with Stonefort Securities
@@ -27,7 +24,6 @@ export default function HowItWorks() {
         {/* =================== Video Box =================== */}
         <div className={styles.videoBox}>
           <div className={styles.videoPlaceholder}>
-          
             <OnboardingDashboard />
           </div>
         </div>

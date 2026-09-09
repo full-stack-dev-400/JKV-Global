@@ -1,8 +1,8 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 /* Additional styles */
-@import './additional-styles/utility-patterns.css' layer(components);
-@import './additional-styles/theme.css';
+@import "./additional-styles/utility-patterns.css" layer(components);
+@import "./additional-styles/theme.css";
 
 @plugin "@tailwindcss/forms" {
   strategy: base;
@@ -13,6 +13,13 @@
 
 @theme {
   --font-inter: Inter, sans-serif;
+
+  /* JKV Global brand palette */
+  --color-jkv: #20c997;
+  --color-jkv-hover: #18b889;
+  --color-jkv-deep: #064f49;
+  --color-jkv-orange: #f59a0a;
+  --color-jkv-mint: #eafbf6;
 
   --text-xs: 0.75rem;
   --text-xs--line-height: 1.5;
@@ -130,23 +137,35 @@
   direction: rtl;
 }
 
-
 /* custom commandcenter css */
 
-@keyframes float { 0%{transform:translateY(0)} 50%{transform:translateY(-10px)} 100%{transform:translateY(0)} }
-.animate-float{ animation: float 4.5s ease-in-out infinite; }
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.animate-float {
+  animation: float 4.5s ease-in-out infinite;
+}
 
 /* === Global Light Theme Overrides (drop at end of style.css) === */
 @layer base {
   /* Base canvas */
-  html, body {
+  html,
+  body {
     background: #fff;
     color: #000;
   }
 
   /* Remap Slate scale so existing text-slate-200/300/etc look correct on white */
   :root {
-    --color-slate-50:  #0a0a0a;
+    --color-slate-50: #0a0a0a;
     --color-slate-100: #121212;
     --color-slate-200: #1f1f1f;
     --color-slate-300: #2a2a2a;
@@ -167,32 +186,50 @@
     border: 1px solid #d1d5db; /* gray-300 */
   }
   .form-input::placeholder,
-  .form-textarea::placeholder { color: #6b7280; } /* gray-500 */
+  .form-textarea::placeholder {
+    color: #6b7280;
+  } /* gray-500 */
   .form-input:focus,
   .form-textarea:focus,
-  .form-select:focus { border-color: #000; outline: none; }
+  .form-select:focus {
+    border-color: #20c997;
+    outline: none;
+  }
 
-  /* Generic button default (adjust if you have custom button palette) */
-  .btn { background:#000; color:#fff; }
-  .btn:hover { background:#1f2937; } /* slate-800-ish */
+  /* JKV Global primary button */
+  .btn {
+    background: #20c997;
+    color: #fff !important;
+  }
+  .btn:hover {
+    background: #18b889;
+    color: #fff !important;
+  }
 
   /* Last-resort: make any hardcoded whites readable on white bg */
-  .text-white   { color:#000 !important; }
-  .fill-white   { fill:#000 !important; }
-  .stroke-white { stroke:#000 !important; }
+  /* .text-white {
+    color: #000 !important;
+  } */
+  .fill-white {
+    fill: #000 !important;
+  }
+  .stroke-white {
+    stroke: #000 !important;
+  }
 
   /* Gradient headline made for dark bg? Fall back to solid black */
   .text-transparent.bg-clip-text[class*="from-slate-"],
   .text-transparent.bg-clip-text[class*="from-white"] {
-    color:#000 !important;
-    background-image:none !important;
+    color: #000 !important;
+    background-image: none !important;
   }
 
   /* Subtle tweak for semi-transparent dark backgrounds that looked “washed” on white */
-  [class*="bg-slate-900/"], [class*="bg-black/"] { backdrop-filter: saturate(1.1); }
+  [class*="bg-slate-900/"],
+  [class*="bg-black/"] {
+    backdrop-filter: saturate(1.1);
+  }
 }
-
-
 
 /* my cutom code  */
 .mobile-menu-open {
@@ -235,12 +272,12 @@
 .faq-table td {
   padding: 10px;
   color: #cfd3d8;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Row hover */
 .faq-table tbody tr:hover {
-  background: rgba(255, 255, 255, 0.10);
+  background: rgba(32, 201, 151, 0.12);
   transition: 0.2s ease;
 }
 

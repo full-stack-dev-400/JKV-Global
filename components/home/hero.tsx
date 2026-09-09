@@ -1,101 +1,148 @@
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import styles from "./Hero.module.css";
 
 import HeroBg from "@/public/images/homeherobanner.webp";
-import TradingElement from "@/public/images/trading-element.webp";
 
-// Flags
-import Flaguae from "@/public/images/flags/uae.png";
+// JKV Global regulation
 import FlagMauritius from "@/public/images/flags/mauritius.png";
-import FlagStLucia from "@/public/images/flags/st-lucia.png";
-import FlagStVincent from "@/public/images/flags/st-vincent-and-the-grenadines.png";
 
 export default function Hero() {
   return (
     <section className={`section ${styles.hero}`}>
-      {/* Background (IMAGE) */}
+      {/* Background */}
       <div className={styles.bg} aria-hidden="true">
         <Image
           src={HeroBg}
           alt=""
           fill
           priority
+          sizes="100vw"
           className={styles.bgImage}
         />
 
-        {/* Overlay stays on top for readability */}
-        {/* <div className={styles.bgOverlay} aria-hidden="true" /> */}
+        <div className={styles.bgOverlay} aria-hidden="true" />
       </div>
 
-      {/* Decorative right element */}
-      {/* <div className={styles.tradingElementWrap} aria-hidden="true">
-        <Image
-          src={TradingElement}
-          alt=""
-          width={400}
-          height={400}
-          className={styles.tradingElement}
-        />
-      </div> */}
+      {/* Decorative JKV glow */}
+      <div className={styles.brandGlow} aria-hidden="true" />
 
       {/* Content */}
       <div className={`container ${styles.container}`}>
         <div className={styles.top}>
+          {/* Badge */}
           <div className={styles.badgeRow} data-aos="fade-down">
-            <a className={`badge ${styles.badgeLink}`} href="#">
-              Powering Your Trading Journey
-            </a>
+            <span className={`badge ${styles.badgeLink}`}>
+              Trade Global Markets With JKV Global
+            </span>
           </div>
 
-          <h1 className={`heading ${styles.title}`} data-aos="fade-down">
-            Trade Limitless <br />
-            With Stonefort Securities
+          {/* Main Heading */}
+          <h1
+            className={`heading ${styles.title}`}
+            data-aos="fade-down"
+            data-aos-delay="100"
+          >
+            Your Forex Journey.
+            <br />
+            <span className={styles.highlight}>Simplified For Success.</span>
           </h1>
 
+          {/* Description */}
           <p
             className={`text ${styles.desc}`}
             data-aos="fade-down"
             data-aos-delay="200"
           >
-            Unlock global market potential with our secure platform, expert support, and
-            innovative trading tools; your gateway to smarter, more confident investing.
+            From opening your account and completing verification to accessing
+            MetaTrader 5 and global markets, JKV Global keeps your trading
+            journey clear, supported and straightforward.
           </p>
 
-          <div className={styles.ctaRow} data-aos="fade-down" data-aos-delay="400">
-            <a className={`button ${styles.ctaBtn}`} href="#0">
-              Open An Account
+          {/* CTAs */}
+          <div
+            className={styles.ctaRow}
+            data-aos="fade-down"
+            data-aos-delay="400"
+          >
+            <a
+              className={`button ${styles.ctaBtn} ${styles.primaryBtn}`}
+              href="#0"
+            >
+              Open Account
+              <ArrowIcon />
             </a>
-            <a className={`button ${styles.ctaBtn}`} href="#0">
-              Login
+
+            <a
+              className={`button ${styles.ctaBtn} ${styles.secondaryBtn}`}
+              href="#0"
+            >
+              Try Demo
             </a>
           </div>
         </div>
 
+        {/* Regulation */}
         <div className={styles.regRow} data-aos="fade-up" data-aos-delay="500">
-          <RegBox label="SCA" flag={Flaguae} />
-          <RegBox label="FSC" flag={FlagMauritius} />
-          <RegBox label="St. Lucia" flag={FlagStLucia} />
-          <RegBox label="St. Vincent" flag={FlagStVincent} />
+          <RegBox
+            label="FSC Mauritius"
+            licence="GB23201820"
+            flag={FlagMauritius}
+          />
         </div>
       </div>
     </section>
   );
 }
 
-function RegBox({ label, flag }: { label: string; flag: any }) {
+function ArrowIcon() {
+  return (
+    <svg
+      className={styles.ctaArrow}
+      viewBox="0 0 20 20"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M4 10H16M11 5L16 10L11 15"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function RegBox({
+  label,
+  licence,
+  flag,
+}: {
+  label: string;
+  licence: string;
+  flag: StaticImageData;
+}) {
   return (
     <div className={`glass ${styles.regBox}`}>
-      <Image src={flag} alt="" width={18} height={18} className={styles.regFlag} />
-      <span className={styles.regLabel}>{label}</span>
+      <div className={styles.flagWrap}>
+        <Image
+          src={flag}
+          alt="Mauritius flag"
+          width={22}
+          height={22}
+          className={styles.regFlag}
+        />
+      </div>
 
-      <svg
-        className={styles.regChevron}
-        viewBox="0 0 20 20"
-        fill="currentColor"
-        aria-hidden="true"
-      >
-        <path d="M7.293 14.707a1 1 0 0 1 0-1.414L10.586 10 7.293 6.707A1 1 0 1 1 8.707 5.293l4 4a1 1 0 0 1 0 1.414l-4 4a1 1 0 0 1-1.414 0z" />
-      </svg>
+      <div className={styles.regContent}>
+        <span className={styles.regSmall}>Regulated by</span>
+
+        <span className={styles.regLabel}>{label}</span>
+
+        <span className={styles.regLicence}>Licence {licence}</span>
+      </div>
+
+      <span className={styles.statusDot} aria-hidden="true" />
 
       <span className={styles.regSheen} aria-hidden="true" />
     </div>

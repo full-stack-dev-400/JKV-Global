@@ -1,24 +1,25 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Image, { StaticImageData } from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "./ProductsShowcase.module.css";
 
 import BgWaves from "@/public/images/white-futuristic-building-line-texture-texture-3d-rendering.jpg";
-import CryptoPhone from "@/public/images/_image (1).webp";
+
 import ForexArrows from "@/public/images/forex.png";
+import CFDVisual from "@/public/images/_image (1).webp";
 import CommoditiesCorn from "@/public/images/_image (2).webp";
 import MetalsBars from "@/public/images/_image (3).webp";
-import ETFsPie from "@/public/images/_image (4).webp";
+import IndicesVisual from "@/public/images/_image (4).webp";
 import StocksLogos from "@/public/images/_image (5).webp";
 
 import DiscoverBG from "@/public/images/dicoverbg.webp";
 
 import IconForex from "@/public/images/forex.webp";
-import IconCrypto from "@/public/images/_image (1).webp";
+import IconCFDs from "@/public/images/_image (1).webp";
 import IconCommodities from "@/public/images/_image (2).webp";
-import IconETFs from "@/public/images/_image (4).webp";
+import IconIndices from "@/public/images/_image (4).webp";
 import IconMetals from "@/public/images/_image (3).webp";
 import IconStocks from "@/public/images/_image (5).webp";
 
@@ -37,15 +38,15 @@ const TABS: Tab[] = [
     img: ForexArrows,
     icon: IconForex,
     blurb:
-      "Forex is not a traditional exchange but a global over-the-counter (OTC) market with no central location. It operates virtually, enabling traders worldwide to buy and sell currencies anytime through a decentralized network of banks and brokers.",
+      "Access the global foreign exchange market and trade currency pairs through JKV Global with competitive trading conditions, MetaTrader 5 and practical market support.",
   },
   {
-    key: "crypto",
-    title: "Cryptocurrencies",
-    img: CryptoPhone,
-    icon: IconCrypto,
+    key: "cfds",
+    title: "CFDs",
+    img: CFDVisual,
+    icon: IconCFDs,
     blurb:
-      "Stonefort Securities lets you trade CFDs on Bitcoin, Ethereum, and other top cryptocurrencies with speed, precision, and reliability.",
+      "CFDs allow traders to take a position on market price movements without owning the underlying asset. JKV Global provides CFD access across supported markets including forex, commodities, shares and indices.",
   },
   {
     key: "commodities",
@@ -53,15 +54,15 @@ const TABS: Tab[] = [
     img: CommoditiesCorn,
     icon: IconCommodities,
     blurb:
-      "Trading commodities including energy, metals, and agricultural products connects investors worldwide and offers opportunities to diversify and profit from global market movement.",
+      "Follow price movements across supported commodity markets through CFDs and use MetaTrader 5 tools to monitor market conditions and manage positions.",
   },
   {
-    key: "etfs",
-    title: "ETFs",
-    img: ETFsPie,
-    icon: IconETFs,
+    key: "indices",
+    title: "Indices",
+    img: IndicesVisual,
+    icon: IconIndices,
     blurb:
-      "An ETF (Exchange-Traded Fund) is a pooled investment that trades like a stock, tracking assets such as commodities or indices. It offers diversification, low costs, and flexible trading during market hours.",
+      "Trade supported index CFDs and gain exposure to broader market movements through a single instrument without directly owning the underlying components.",
   },
   {
     key: "metals",
@@ -69,31 +70,48 @@ const TABS: Tab[] = [
     img: MetalsBars,
     icon: IconMetals,
     blurb:
-      "Trade CFDs on gold, silver, platinum, and palladium with Stonefort Securities using live charts and advanced tools giving you flexibility to seize every market opportunity.",
+      "Access precious metals markets through JKV Global and follow instruments such as gold and other supported metals with competitive trading conditions and advanced platform tools.",
   },
   {
-    key: "stocks",
-    title: "Stocks",
+    key: "shares",
+    title: "Shares",
     img: StocksLogos,
     icon: IconStocks,
     blurb:
-      "Trade CFDs on leading global stocks such as Amazon, Apple, Microsoft, and more, without owning the shares. Speculate on price movements with leverage and take advantage of advanced trading tools to maximize your market potential.",
+      "Trade supported share CFDs and take a position on the price movements of listed companies without directly owning the underlying shares.",
   },
 ];
 
 export default function ProductsShowcase() {
   const [idx, setIdx] = useState(0);
+
   const active = TABS[idx];
 
-  const go = (dir: 1 | -1) => setIdx((i) => (i + dir + TABS.length) % TABS.length);
+  const go = (dir: 1 | -1) => {
+    setIdx((i) => (i + dir + TABS.length) % TABS.length);
+  };
 
   const variants = useMemo(
     () => ({
-      in: { opacity: 0, x: 80, filter: "blur(6px)" } as any,
-      center: { opacity: 1, x: 0, filter: "blur(0px)" } as any,
-      out: { opacity: 0, x: -80, filter: "blur(6px)" } as any,
+      in: {
+        opacity: 0,
+        x: 80,
+        filter: "blur(6px)",
+      } as any,
+
+      center: {
+        opacity: 1,
+        x: 0,
+        filter: "blur(0px)",
+      } as any,
+
+      out: {
+        opacity: 0,
+        x: -80,
+        filter: "blur(6px)",
+      } as any,
     }),
-    []
+    [],
   );
 
   return (
@@ -110,10 +128,16 @@ export default function ProductsShowcase() {
         />
       </div>
 
-      {/* Left decorative curved bg (tablet/desktop only) */}
+      {/* Decorative curved background */}
       <div className={styles.discoverWrap} aria-hidden="true">
         <div className={styles.discoverInner}>
-          <Image src={DiscoverBG} alt="" fill className={styles.discoverImg} sizes="320px" />
+          <Image
+            src={DiscoverBG}
+            alt=""
+            fill
+            className={styles.discoverImg}
+            sizes="320px"
+          />
         </div>
       </div>
 
@@ -121,32 +145,44 @@ export default function ProductsShowcase() {
         {/* Heading */}
         <header className={styles.header}>
           <h2 className={`heading ${styles.heading}`}>
-            Our <span className={styles.headingAccent}>Products</span>
+            Explore Our{" "}
+            <span className={styles.headingAccent}>Trading Instruments</span>
           </h2>
 
           <p className={`text ${styles.lead}`}>
-            Experience next-generation trading with <strong>Stonefort Securities</strong>, advanced
-            platforms built for stability, precision, and speed. Enjoy ultra-tight spreads and deep
-            liquidity from top-tier banks and prime brokers for a competitive edge in every trade.
+            Access a broad range of global markets with JKV Global. Explore
+            forex, metals and CFDs across commodities, shares and indices
+            through MetaTrader 5 and supported account types.
           </p>
         </header>
 
         {/* Tabs */}
-        <div className={styles.tabs} role="tablist" aria-label="Products tabs">
-          {TABS.map((t, i) => {
+        <div
+          className={styles.tabs}
+          role="tablist"
+          aria-label="Trading instruments"
+        >
+          {TABS.map((tab, i) => {
             const isActive = i === idx;
 
             return (
               <button
-                key={t.key}
+                key={tab.key}
                 type="button"
                 onClick={() => setIdx(i)}
                 className={`${styles.tab} ${isActive ? styles.tabActive : ""}`}
                 role="tab"
                 aria-selected={isActive}
               >
-                <Image src={t.icon} alt={t.title} width={22} height={22} className={styles.tabIcon} />
-                <span className={styles.tabText}>{t.title}</span>
+                <Image
+                  src={tab.icon}
+                  alt=""
+                  width={22}
+                  height={22}
+                  className={styles.tabIcon}
+                />
+
+                <span className={styles.tabText}>{tab.title}</span>
               </button>
             );
           })}
@@ -162,16 +198,30 @@ export default function ProductsShowcase() {
 
                 <AnimatePresence mode="wait">
                   <motion.div
-                    key={active.key + "-img"}
+                    key={`${active.key}-img`}
                     className={styles.mediaMotion}
-                    initial={{ opacity: 0, x: 80, scale: 0.96 }}
-                    animate={{ opacity: 1, x: 0, scale: 1 }}
-                    exit={{ opacity: 0, x: -80, scale: 0.96 }}
-                    transition={{ duration: 0.45 }}
+                    initial={{
+                      opacity: 0,
+                      x: 80,
+                      scale: 0.96,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      x: 0,
+                      scale: 1,
+                    }}
+                    exit={{
+                      opacity: 0,
+                      x: -80,
+                      scale: 0.96,
+                    }}
+                    transition={{
+                      duration: 0.45,
+                    }}
                   >
                     <Image
                       src={active.img}
-                      alt={active.title}
+                      alt={`${active.title} trading`}
                       fill
                       className={styles.mediaImg}
                       sizes="(min-width:1536px) 620px, (min-width:1280px) 560px, (min-width:1024px) 520px, 70vw"
@@ -185,13 +235,15 @@ export default function ProductsShowcase() {
             <div className={styles.textCol}>
               <AnimatePresence mode="wait">
                 <motion.h3
-                  key={active.key + "-title"}
+                  key={`${active.key}-title`}
                   className={styles.title}
                   initial="in"
                   animate="center"
                   exit="out"
                   variants={variants}
-                  transition={{ duration: 0.45 }}
+                  transition={{
+                    duration: 0.45,
+                  }}
                 >
                   {active.title}
                 </motion.h3>
@@ -199,13 +251,16 @@ export default function ProductsShowcase() {
 
               <AnimatePresence mode="wait">
                 <motion.p
-                  key={active.key + "-text"}
+                  key={`${active.key}-text`}
                   className={styles.blurb}
                   initial="in"
                   animate="center"
                   exit="out"
                   variants={variants}
-                  transition={{ duration: 0.45, delay: 0.05 }}
+                  transition={{
+                    duration: 0.45,
+                    delay: 0.05,
+                  }}
                 >
                   {active.blurb}
                 </motion.p>
@@ -213,12 +268,23 @@ export default function ProductsShowcase() {
             </div>
           </div>
 
-          {/* Arrows */}
-          <button type="button" aria-label="Previous" onClick={() => go(-1)} className={styles.prev}>
+          {/* Previous */}
+          <button
+            type="button"
+            aria-label="Previous instrument"
+            onClick={() => go(-1)}
+            className={styles.prev}
+          >
             ‹
           </button>
 
-          <button type="button" aria-label="Next" onClick={() => go(1)} className={styles.next}>
+          {/* Next */}
+          <button
+            type="button"
+            aria-label="Next instrument"
+            onClick={() => go(1)}
+            className={styles.next}
+          >
             ›
           </button>
         </div>
@@ -226,7 +292,8 @@ export default function ProductsShowcase() {
         {/* CTA */}
         <div className={styles.ctaRow}>
           <a href="/register" className={`button ${styles.ctaBtn}`}>
-            Open an Account <span className={styles.ctaArrow}>→</span>
+            Open Account
+            <span className={styles.ctaArrow}>→</span>
           </a>
         </div>
       </div>

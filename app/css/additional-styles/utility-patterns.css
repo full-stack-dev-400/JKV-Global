@@ -1,50 +1,50 @@
 /* Typography */
 .h1 {
-    @apply text-6xl font-extrabold;
+  @apply text-6xl font-extrabold;
 }
 
 .h2 {
-    @apply text-4xl font-extrabold;
+  @apply text-4xl font-extrabold;
 }
 
 .h3 {
-    @apply text-3xl font-extrabold;
+  @apply text-3xl font-extrabold;
 }
 
 .h4 {
-    @apply text-2xl font-extrabold;
+  @apply text-2xl font-extrabold;
 }
 
 @media (width >= theme(--breakpoint-md)) {
-    .h1 {
-        @apply text-7xl;
-    }
+  .h1 {
+    @apply text-7xl;
+  }
 
-    .h2 {
-        @apply text-6xl;
-    }
+  .h2 {
+    @apply text-6xl;
+  }
 
-    .h3 {
-        @apply text-5xl;
-    }
+  .h3 {
+    @apply text-5xl;
+  }
 
-    .h4 {
-        @apply text-3xl;
-    }
+  .h4 {
+    @apply text-3xl;
+  }
 }
 
 /* Buttons */
 .btn,
 .btn-sm {
-    @apply text-sm font-medium inline-flex items-center justify-center border border-transparent rounded-full whitespace-nowrap transition duration-150 ease-in-out;
+  @apply text-sm font-medium inline-flex items-center justify-center border border-transparent rounded-full whitespace-nowrap transition duration-150 ease-in-out;
 }
 
 .btn {
-    @apply px-4 py-1.5;
+  @apply px-4 py-1.5;
 }
 
 .btn-sm {
-    @apply px-3 py-1;
+  @apply px-3 py-1;
 }
 
 /* Forms */
@@ -61,32 +61,32 @@ input[type="search"]::-webkit-search-results-decoration {
 .form-select,
 .form-checkbox,
 .form-radio {
-    @apply border border-transparent rounded-sm focus:ring-0 focus:ring-offset-0;
+  @apply border border-transparent rounded-sm focus:ring-0 focus:ring-offset-0;
 }
 
 .form-input,
 .form-textarea,
 .form-multiselect,
 .form-select {
-    @apply bg-slate-800 text-slate-200 text-sm px-3 py-1.5 focus:border-purple-500;
+  @apply bg-slate-800 text-slate-200 text-sm px-3 py-1.5 focus:border-[#20C997];
 }
 
 .form-input,
 .form-textarea {
-    @apply placeholder-slate-500;
+  @apply placeholder-slate-500;
 }
 
 .form-select {
-    @apply pr-10;
+  @apply pr-10;
 }
 
 .form-checkbox,
 .form-radio {
-    @apply bg-slate-800 checked:bg-purple-500 checked:border-transparent text-purple-600 rounded-xs focus-visible:not-checked:border-purple-500;
+  @apply bg-slate-800 checked:bg-[#20C997] checked:border-transparent text-[#20C997] rounded-xs focus-visible:not-checked:border-[#20C997];
 }
 
 .form-checkbox {
-    @apply rounded-xs;
+  @apply rounded-xs;
 }
 
 /* Chrome, Safari and Opera */
@@ -95,28 +95,29 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
-
-/* custom code um */
+/* JKV Global light-theme overrides */
 @layer base {
   body {
     @apply bg-white text-black;
   }
 
-  input, select, textarea {
+  input,
+  select,
+  textarea {
     @apply bg-white text-black border border-gray-300;
   }
 
   .form-input,
   .form-textarea,
   .form-select {
-    @apply bg-white text-black placeholder-gray-500 focus:border-black;
+    @apply bg-white text-black placeholder-gray-500 focus:border-[#20C997];
   }
 
   .btn {
-    @apply bg-black text-white hover:bg-gray-800;
+    @apply bg-[#20C997] text-white hover:bg-[#18B889];
   }
 }

@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import Image, { StaticImageData } from "next/image";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import Image, { type StaticImageData } from "next/image";
 import styles from "./MarqueeTicker.module.css";
 
 import SpeedImg from "@/public/images/speed.webp";
@@ -22,23 +22,63 @@ type Item = {
 };
 
 const ITEMS: Item[] = [
-  { label: "Speed of Implementation", value: "<30 ms", img: SpeedImg },
-  { label: "Trading Tools", value: "50+", img: ToolsImg },
-  { label: "Minimum Deposit", value: "$50", img: DepositImg },
-  { label: "Segregated Clients Funds", value: "100%", img: FundsImg },
-  { label: "Trading Instruments", value: "1500+", img: InstrumentsImg },
-  { label: "Customer Support", value: "24/7 Multilingual", img: SupportImg },
-  { label: "Regulated By", value: "SCA, FSC, St. Lucia, St. Vincent", img: RegulatedImg },
-  { label: "Negative Balance", value: "Protection", img: NegativeImg },
-  { label: "Leverage", value: "1:1000", img: LeverageImg },
-  { label: "Tightest Spreads", value: "From 0.4 Pips", img: SpreadImg },
+  {
+    label: "Trading Platform",
+    value: "MetaTrader 5",
+    img: SpeedImg,
+  },
+  {
+    label: "Device Access",
+    value: "Android, iOS, Desktop & Web",
+    img: ToolsImg,
+  },
+  {
+    label: "Account Types",
+    value: "Business, Prime, Pro & ECN",
+    img: DepositImg,
+  },
+  {
+    label: "Client Funds",
+    value: "Segregated",
+    img: FundsImg,
+  },
+  {
+    label: "Trading Instruments",
+    value: "20,000+",
+    img: InstrumentsImg,
+  },
+  {
+    label: "Personal Support",
+    value: "Dedicated Account Manager",
+    img: SupportImg,
+  },
+  {
+    label: "Regulated By",
+    value: "FSC Mauritius",
+    img: RegulatedImg,
+  },
+  {
+    label: "Negative Balance",
+    value: "Protection Available",
+    img: NegativeImg,
+  },
+  {
+    label: "Leverage",
+    value: "Up to 1:400",
+    img: LeverageImg,
+  },
+  {
+    label: "Pro Account Spread",
+    value: "Average 0.8 Pip",
+    img: SpreadImg,
+  },
 ];
 
 function Row() {
   return (
     <div className={styles.row}>
       {ITEMS.map((item, i) => (
-        <div key={i} className={styles.item}>
+        <div key={`${item.label}-${i}`} className={styles.item}>
           <Image
             src={item.img}
             alt={item.label}
@@ -48,6 +88,7 @@ function Row() {
           />
 
           <span className={styles.label}>{item.label}</span>
+
           <span className={styles.value}>{item.value}</span>
         </div>
       ))}
@@ -64,28 +105,39 @@ export default function MarqueeTicker({
 }) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const rowMeasureRef = useRef<HTMLDivElement>(null);
+
   const [rowPx, setRowPx] = useState(0);
 
   useLayoutEffect(() => {
     const el = rowMeasureRef.current;
+
     if (!el) return;
 
-    const setWidth = () => setRowPx(el.offsetWidth);
+    const setWidth = () => {
+      setRowPx(el.offsetWidth);
+    };
+
     setWidth();
 
     let ro: ResizeObserver | undefined;
+
     if (typeof window !== "undefined" && "ResizeObserver" in window) {
-      ro = new ResizeObserver(() => setWidth());
+      ro = new ResizeObserver(() => {
+        setWidth();
+      });
+
       ro.observe(el);
     }
 
     const onLoad = () => setWidth();
     const onResize = () => setWidth();
+
     window.addEventListener("load", onLoad);
     window.addEventListener("resize", onResize);
 
     return () => {
       ro?.disconnect();
+
       window.removeEventListener("load", onLoad);
       window.removeEventListener("resize", onResize);
     };
@@ -93,14 +145,16 @@ export default function MarqueeTicker({
 
   useEffect(() => {
     const vp = viewportRef.current;
+
     if (!vp) return;
 
-    vp.style.setProperty("--sf-speed", `${speedSeconds}s`);
-    vp.style.setProperty("--sf-h", "150px");
-    vp.style.setProperty("--rowpx", `${rowPx}px`);
+    vp.style.setProperty("--jkv-speed", `${speedSeconds}s`);
 
-    // theme-aware separator using tokens (works in light + dark)
-    vp.style.setProperty("--sf-sep", "var(--border)");
+    vp.style.setProperty("--jkv-h", "150px");
+
+    vp.style.setProperty("--jkv-rowpx", `${rowPx}px`);
+
+    vp.style.setProperty("--jkv-sep", "var(--border)");
   }, [rowPx, speedSeconds]);
 
   const isRunning = rowPx > 0;
@@ -108,18 +162,25 @@ export default function MarqueeTicker({
   return (
     <div className={`${styles.root} ${className}`}>
       <div className={styles.viewport} ref={viewportRef}>
-        <div className={`${styles.track} ${styles.trackA} ${isRunning ? styles.run : ""}`}>
+        <div
+          className={`${styles.track} ${styles.trackA} ${
+            isRunning ? styles.run : ""
+          }`}
+        >
           <Row />
         </div>
 
         <div
-          className={`${styles.track} ${styles.trackB} ${isRunning ? styles.run : ""}`}
+          className={`${styles.track} ${styles.trackB} ${
+            isRunning ? styles.run : ""
+          }`}
           aria-hidden="true"
         >
           <Row />
         </div>
 
         <div className={`${styles.fade} ${styles.left}`} aria-hidden="true" />
+
         <div className={`${styles.fade} ${styles.right}`} aria-hidden="true" />
 
         {/* Hidden measurer */}

@@ -1,5 +1,5 @@
 /* =========================================================
-   Stonefort Global Design System (Light + Dark)
+   JKV Global Design System (Light + Dark)
    Use with .module.css components
 ========================================================= */
 
@@ -7,17 +7,19 @@
    1) THEME TOKENS (LIGHT)
 ------------------------- */
 :root {
-  
-
   /* Layout */
   --container: 1240px;
   --section-pad-y: 80px;
   --section-pad-y-mobile: 48px;
 
   /* ===== BRAND ===== */
-  --brand: #4d6e55;
-  --brand-soft: rgba(77, 110, 85, 0.08);
-  --brand-border: rgba(77, 110, 85, 0.4);
+  --brand: #20c997;
+  --brand-soft: rgba(32, 201, 151, 0.1);
+  --brand-border: rgba(32, 201, 151, 0.4);
+  --brand-hover: #18b889;
+  --brand-deep: #064f49;
+  --brand-accent: #f59a0a;
+  --brand-mint: #eafbf6;
 
   /* ===== TEXT ===== */
   --text: #0a1015;
@@ -35,7 +37,7 @@
   --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.12);
   --shadow-md: 0 10px 35px rgba(0, 0, 0, 0.15);
 
-    /* ===== CARD SHADOWS (LIGHT MODE) ===== */
+  /* ===== CARD SHADOWS (LIGHT MODE) ===== */
   --card-shadow: 0 24px 60px rgba(10, 16, 21, 0.12);
   --card-shadow-hover: 0 34px 80px rgba(10, 16, 21, 0.18);
 
@@ -70,18 +72,16 @@
   --badge-text: var(--brand);
 }
 
-
-
 /* -------------------------
    2) THEME TOKENS (DARK)
    Toggle with: html[data-theme="dark"]
 ------------------------- */
 html[data-theme="dark"] {
-  --bg: #101711;
+  --bg: #07110f;
   /* --bg: #0C120C;  */
-  --surface: #101711;
+  --surface: #0a1613;
 
-  --surface-2: #0f1620;
+  --surface-2: #0d1c18;
 
   --text: #eaf0f6;
   --text-strong: #ffffff;
@@ -89,22 +89,25 @@ html[data-theme="dark"] {
   --text-muted: rgba(234, 240, 246, 0.62);
 
   --border: rgba(234, 240, 246, 0.14);
-  
-    /* ===== CARD SHADOWS (DARK MODE – GREEN GLOW) ===== */
-  --card-shadow: 0 0 75px rgba(135, 171, 147, 0.45);
-  --card-shadow-hover: 0 0 95px rgba(135, 171, 147, 0.65);
 
+  /* ===== CARD SHADOWS (DARK MODE – GREEN GLOW) ===== */
+  --card-shadow: 0 0 75px rgba(32, 201, 151, 0.3);
+  --card-shadow-hover: 0 0 95px rgba(32, 201, 151, 0.48);
 
   /* brand can stay same, but slightly lighter reads better on dark */
-  --brand: #87ab93;
-  --brand-soft: rgba(135, 171, 147, 0.12);
-  --brand-border: rgba(135, 171, 147, 0.35);
+  --brand: #20c997;
+  --brand-soft: rgba(32, 201, 151, 0.14);
+  --brand-border: rgba(32, 201, 151, 0.38);
+  --brand-hover: #18b889;
+  --brand-deep: #064f49;
+  --brand-accent: #f59a0a;
+  --brand-mint: #eafbf6;
 
   --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.45);
   --shadow-md: 0 10px 35px rgba(0, 0, 0, 0.55);
 
   /* glass in dark should be darker, not white */
-  --glass-bg: rgba(12, 18, 24, 0.55);
+  --glass-bg: rgba(7, 17, 15, 0.62);
   --glass-border: rgba(234, 240, 246, 0.16);
   --glass-reflection-strong: rgba(234, 240, 246, 0.14);
   --glass-reflection-soft: rgba(234, 240, 246, 0.06);
@@ -120,7 +123,6 @@ html[data-theme="dark"] {
   --badge-border: var(--brand-border);
   --badge-text: var(--brand);
 }
-
 
 /* -------------------------
    3) BASE / DEFAULTS
@@ -227,8 +229,12 @@ body {
   cursor: pointer;
   text-decoration: none;
 
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease,
-    color 0.25s ease, border-color 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
 
   box-shadow: var(--shadow-sm);
 }
@@ -267,6 +273,5 @@ body {
 }
 
 section.relative.py-12.md\:py-16.bg-gradient-to-t.from-\[\#788FA1\].to-white.text-\[\#5D595B\] {
-    background: transparent;
+  background: transparent;
 }
-

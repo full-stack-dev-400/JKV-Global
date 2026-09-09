@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
+
 import styles from "./ExpandCards.module.css";
 
 export type ExpandItem = {
@@ -24,58 +25,83 @@ export default function ExpandCards({
   const rootRef = useRef<HTMLElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
 
-  // mobile slider helpers
+  /* Mobile slider helpers */
   const cardRefs = useRef<Array<HTMLElement | null>>([]);
+
   const [mobileIndex, setMobileIndex] = useState(0);
+
   const isMobileRef = useRef(false);
   const isInteractingRef = useRef(false);
+
   const resumeTimerRef = useRef<number | null>(null);
   const autoTimerRef = useRef<number | null>(null);
   const scrollRafRef = useRef<number | null>(null);
 
-  // Build template string (depends on active/locked)
+  /* Build expandable grid */
   const template = useMemo(() => {
     const idx = locked ?? active;
-    if (idx == null) return Array(items.length).fill("1fr").join(" ");
+
+    if (idx == null) {
+      return Array(items.length).fill("1fr").join(" ");
+    }
+
     return Array(items.length)
       .fill("1fr")
       .map((_, i) => (i === idx ? "3fr" : "1fr"))
       .join(" ");
   }, [active, locked, items.length]);
 
-  // CSS vars (no inline height styles)
+  /* Section height */
   useEffect(() => {
-    if (rootRef.current) rootRef.current.style.setProperty("--ec-height", `${height}px`);
+    if (rootRef.current) {
+      rootRef.current.style.setProperty("--ec-height", `${height}px`);
+    }
   }, [height]);
 
+  /* Grid template */
   useEffect(() => {
-    if (gridRef.current) gridRef.current.style.setProperty("--ec-template", template);
+    if (gridRef.current) {
+      gridRef.current.style.setProperty("--ec-template", template);
+    }
   }, [template]);
 
-  // Detect mobile (<767px)
+  /* Detect mobile */
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
+
     const update = () => {
       isMobileRef.current = mq.matches;
-      // reset index when switching modes
-      if (mq.matches) setMobileIndex(0);
+
+      if (mq.matches) {
+        setMobileIndex(0);
+      }
     };
+
     update();
+
     mq.addEventListener?.("change", update);
-    return () => mq.removeEventListener?.("change", update);
+
+    return () => {
+      mq.removeEventListener?.("change", update);
+    };
   }, []);
 
-  // Compute active slide index on scroll (for dots)
+  /* Active mobile slide */
   useEffect(() => {
     const grid = gridRef.current;
+
     if (!grid) return;
 
     const onScroll = () => {
       if (!isMobileRef.current) return;
-      if (scrollRafRef.current) cancelAnimationFrame(scrollRafRef.current);
+
+      if (scrollRafRef.current) {
+        cancelAnimationFrame(scrollRafRef.current);
+      }
 
       scrollRafRef.current = requestAnimationFrame(() => {
         const cards = cardRefs.current.filter(Boolean) as HTMLElement[];
+
         if (!cards.length) return;
 
         const viewportCenter = grid.scrollLeft + grid.clientWidth / 2;
@@ -85,8 +111,11 @@ export default function ExpandCards({
 
         for (let i = 0; i < cards.length; i++) {
           const el = cards[i];
+
           const elCenter = el.offsetLeft + el.clientWidth / 2;
+
           const dist = Math.abs(elCenter - viewportCenter);
+
           if (dist < bestDist) {
             bestDist = dist;
             bestIdx = i;
@@ -97,58 +126,85 @@ export default function ExpandCards({
       });
     };
 
-    grid.addEventListener("scroll", onScroll, { passive: true });
-    return () => grid.removeEventListener("scroll", onScroll);
+    grid.addEventListener("scroll", onScroll, {
+      passive: true,
+    });
+
+    return () => {
+      grid.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   const scrollToIndex = (idx: number, behavior: ScrollBehavior = "smooth") => {
     const grid = gridRef.current;
     const el = cardRefs.current[idx];
+
     if (!grid || !el) return;
 
-    grid.scrollTo({ left: el.offsetLeft, behavior });
+    grid.scrollTo({
+      left: el.offsetLeft,
+      behavior,
+    });
+
     setMobileIndex(idx);
   };
 
   const pauseAuto = () => {
     isInteractingRef.current = true;
 
-    if (resumeTimerRef.current) window.clearTimeout(resumeTimerRef.current);
+    if (resumeTimerRef.current) {
+      window.clearTimeout(resumeTimerRef.current);
+    }
+
     resumeTimerRef.current = null;
   };
 
   const resumeAutoSoon = () => {
-    if (resumeTimerRef.current) window.clearTimeout(resumeTimerRef.current);
+    if (resumeTimerRef.current) {
+      window.clearTimeout(resumeTimerRef.current);
+    }
+
     resumeTimerRef.current = window.setTimeout(() => {
       isInteractingRef.current = false;
     }, 1200);
   };
 
-  // Auto-scroll (mobile only) + pause on touch/drag/hover
+  /* Mobile auto-slider */
   useEffect(() => {
     const grid = gridRef.current;
+
     if (!grid) return;
 
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
 
     const clearAuto = () => {
-      if (autoTimerRef.current) window.clearInterval(autoTimerRef.current);
+      if (autoTimerRef.current) {
+        window.clearInterval(autoTimerRef.current);
+      }
+
       autoTimerRef.current = null;
     };
 
     const setupAuto = () => {
       clearAuto();
+
       if (!isMobileRef.current) return;
       if (reduced) return;
 
       autoTimerRef.current = window.setInterval(() => {
         if (!isMobileRef.current) return;
-        if (isInteractingRef.current) return;
+
+        if (isInteractingRef.current) {
+          return;
+        }
 
         setMobileIndex((prev) => {
           const next = (prev + 1) % items.length;
-          // if looping back to first, jump without smooth (feels clean)
+
           scrollToIndex(next, next === 0 ? "auto" : "smooth");
+
           return next;
         });
       }, 3200);
@@ -157,28 +213,46 @@ export default function ExpandCards({
     setupAuto();
 
     const onEnter = () => pauseAuto();
+
     const onLeave = () => resumeAutoSoon();
+
     const onDown = () => pauseAuto();
+
     const onUp = () => resumeAutoSoon();
 
     grid.addEventListener("mouseenter", onEnter);
+
     grid.addEventListener("mouseleave", onLeave);
+
     grid.addEventListener("pointerdown", onDown);
+
     window.addEventListener("pointerup", onUp);
-    window.addEventListener("touchend", onUp, { passive: true });
+
+    window.addEventListener("touchend", onUp, {
+      passive: true,
+    });
 
     const mq = window.matchMedia("(max-width: 767px)");
+
     const onMQ = () => setupAuto();
+
     mq.addEventListener?.("change", onMQ);
 
     return () => {
       clearAuto();
-      if (resumeTimerRef.current) window.clearTimeout(resumeTimerRef.current);
+
+      if (resumeTimerRef.current) {
+        window.clearTimeout(resumeTimerRef.current);
+      }
 
       grid.removeEventListener("mouseenter", onEnter);
+
       grid.removeEventListener("mouseleave", onLeave);
+
       grid.removeEventListener("pointerdown", onDown);
+
       window.removeEventListener("pointerup", onUp);
+
       window.removeEventListener("touchend", onUp as any);
 
       mq.removeEventListener?.("change", onMQ);
@@ -190,21 +264,27 @@ export default function ExpandCards({
       <div className={`container ${styles.container}`}>
         <header className={styles.header} data-aos="fade-down">
           <h2 className={`heading ${styles.heading}`}>
-            <span className={styles.headingLine1}>Why Traders Trust</span>
+            <span className={styles.headingLine1}>Why Traders Choose</span>
+
             <br />
-            <span className={styles.headingLine2}>Stonefort Securities</span>
+
+            <span className={styles.headingLine2}>JKV Global</span>
           </h2>
 
           <p className={`text ${styles.subtext}`}>
-            Driven by performance and innovation, we provide traders with exceptional trading
-            conditions, lightning-fast execution, and industry-leading pricing ensuring every
-            trade counts.
+            Trade with a broker focused on regulatory oversight, segregated
+            client funds, transparent pricing and practical access to global
+            markets through MetaTrader 5.
           </p>
         </header>
       </div>
 
       <div className={styles.stage} onMouseLeave={() => setActive(null)}>
-        <div ref={gridRef} className={styles.grid} onMouseLeave={() => setActive(null)}>
+        <div
+          ref={gridRef}
+          className={styles.grid}
+          onMouseLeave={() => setActive(null)}
+        >
           {items.map((item, i) => {
             const isActive = (locked ?? active) === i;
 
@@ -222,16 +302,21 @@ export default function ExpandCards({
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
                     setLocked((v) => (v === i ? null : i));
+
                     e.preventDefault();
                   }
-                  if (e.key === "Escape") setLocked(null);
+
+                  if (e.key === "Escape") {
+                    setLocked(null);
+                  }
                 }}
                 onClick={() => {
-                  // On mobile slider, tap just focuses slide (no expand needed)
                   if (isMobileRef.current) {
                     scrollToIndex(i, "smooth");
+
                     return;
                   }
+
                   setLocked((v) => (v === i ? null : i));
                 }}
                 aria-expanded={isActive}
@@ -239,7 +324,9 @@ export default function ExpandCards({
                 <div
                   aria-hidden
                   className={styles.bg}
-                  style={{ backgroundImage: `url(${item.image})` }}
+                  style={{
+                    backgroundImage: `url(${item.image})`,
+                  }}
                 />
 
                 <div className={styles.numberWrap}>
@@ -250,28 +337,36 @@ export default function ExpandCards({
 
                 <div className={styles.content}>
                   <h3 className={styles.cardTitle}>{item.title}</h3>
-                  {item.body && <div className={styles.cardBody}>{item.body}</div>}
+
+                  {item.body && (
+                    <div className={styles.cardBody}>{item.body}</div>
+                  )}
                 </div>
 
                 <div className={styles.ctaWrap}>
                   <a href="#" className={styles.cta}>
-                    Start Trading Now <span className={styles.ctaArrow}>→</span>
+                    Open Account
+                    <span className={styles.ctaArrow}>→</span>
                   </a>
                 </div>
 
-                {i < items.length - 1 && <div className={styles.divider} aria-hidden="true" />}
+                {i < items.length - 1 && (
+                  <div className={styles.divider} aria-hidden="true" />
+                )}
               </article>
             );
           })}
         </div>
 
-        {/* Pagination dots (styled purely via CSS; active state synced by JS) */}
+        {/* Mobile pagination */}
         <div className={styles.dots} aria-label="Cards navigation">
           {items.map((_, i) => (
             <button
               key={i}
               type="button"
-              className={`${styles.dot} ${mobileIndex === i ? styles.dotActive : ""}`}
+              className={`${styles.dot} ${
+                mobileIndex === i ? styles.dotActive : ""
+              }`}
               onClick={() => scrollToIndex(i, "smooth")}
               aria-label={`Go to card ${i + 1}`}
             />
@@ -282,63 +377,76 @@ export default function ExpandCards({
   );
 }
 
-/* demoItems unchanged */
+/* =========================================================
+   JKV GLOBAL ITEMS
+========================================================= */
+
 const demoItems: ExpandItem[] = [
   {
     id: 1,
     image: "/images/InstantWithdrawal.webp",
     number: "01",
-    title: "Instant Withdrawal",
-    body: <>Experience hassle-free withdrawals with no delays and total transparency.</>,
+    title: "Clear Withdrawal Process",
+    body: (
+      <>
+        JKV Global states that withdrawals can be processed within 24–72 hours
+        after the relevant verification and withdrawal process is completed.
+      </>
+    ),
   },
+
   {
     id: 2,
     image: "/images/tier1Banking.webp",
     number: "02",
-    title: "Tier 1 Banking Partners",
+    title: "Segregated Client Funds",
     body: (
       <>
-        Your funds are securely held with trusted Tier 1 banks, ensuring maximum protection and
-        complete peace of mind.
+        Client money is held separately from company funds with banking
+        institutions, supporting clear fund-segregation practices.
       </>
     ),
   },
+
   {
     id: 3,
     image: "/images/cardpartners.webp",
     number: "03",
-    title: "Globally Regulated",
+    title: "Regulated by FSC Mauritius",
     body: (
       <>
-        Operating under multiple international licenses, Stonefort Securities guarantees secure
-        trading conditions backed by regulatory oversight and investor protection.
+        JKV Global identifies the Financial Services Commission of Mauritius as
+        its regulator under licence number GB23201820.
       </>
     ),
   },
+
   {
     id: 4,
     image: "/images/fast-execution.webp",
     number: "04",
-    title: "Ultra-Fast Execution",
+    title: "MetaTrader 5 Access",
     body: (
       <>
-        Experience lightning-speed execution under 70 milliseconds, empowering traders to capture
-        every opportunity without delay.
+        Access MetaTrader 5 across Android, iOS, Desktop and Web and stay
+        connected to global markets across supported devices.
       </>
     ),
   },
+
   {
     id: 5,
     image: "/images/high-leverage.webp",
     number: "05",
-    title: "Leverage Up to 1:1000",
+    title: "Leverage Up to 1:400",
     body: (
       <>
-        Empower your strategy with high-performance leverage designed to help you seize every market
-        opportunity.
+        JKV Global&apos;s homepage account specifications show leverage of up to
+        1:400 across its Business, Prime, Pro and ECN account types.
       </>
     ),
   },
+
   {
     id: 6,
     image: "/images/negativeBalance.webp",
@@ -346,8 +454,8 @@ const demoItems: ExpandItem[] = [
     title: "Negative Balance Protection",
     body: (
       <>
-        Your capital remains protected no matter how volatile the markets become, your risk is
-        always limited to your initial deposit.
+        JKV Global highlights negative-balance protection among the
+        risk-management tools available to help manage leveraged trading risk.
       </>
     ),
   },
