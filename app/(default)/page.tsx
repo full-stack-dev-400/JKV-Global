@@ -40,16 +40,16 @@ import { FinalConversion } from "@/components/home/FinalConversion";
 const slides = [
   {
     id: "a",
-    title: "Stonefort platforms",
+    title: "JKV Global platforms",
     headline: "MetaTrader 5",
-    copy: "Experience seamless trading with Stonefort’s MetaTrader 5 platform designed for speed, precision, and access to global markets.",
+    copy: "Experience seamless trading with JKV Global’s MetaTrader 5 platform designed for speed, precision, and access to global markets.",
     img: DeviceA,
   },
   {
     id: "b",
-    title: "Stonefort CRM",
+    title: "JKV Global CRM",
     headline: "CRM",
-    copy: "Stonefort CRM gives traders secure access to deposits, withdrawals, and account management everything in one simple dashboard.",
+    copy: "JKV Global CRM gives traders secure access to deposits, withdrawals, and account management everything in one simple dashboard.",
     img: DeviceB,
   },
 ];

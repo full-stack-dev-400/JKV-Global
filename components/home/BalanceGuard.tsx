@@ -16,12 +16,16 @@ export default function BalanceGuard() {
           <div className={styles.content}>
             <p className={styles.kicker}>Protection</p>
 
-            <h2 className={`title ${styles.heading}`}>Stonefort Balance Guard</h2>
+            <h2 className={`title ${styles.heading}`}>
+              JKV Global Balance Guard
+            </h2>
 
             <p className={`text ${styles.desc}`}>
-              Your Stonefort Securities account includes{" "}
-              <span className={styles.highlight}>free Negative Balance Protection</span>,
-              ensuring your losses never exceed your deposited funds.
+              Your JKV Global account includes{" "}
+              <span className={styles.highlight}>
+                free Negative Balance Protection
+              </span>
+              , ensuring your losses never exceed your deposited funds.
             </p>
 
             <a href="#" className={`button ${styles.cta}`}>
@@ -36,7 +40,7 @@ export default function BalanceGuard() {
             <div className={styles.imageWrap}>
               <Image
                 src={BalanceGuardImg}
-                alt="Stonefort Balance Guard – Negative Balance Protection"
+                alt="JKV Global Balance Guard – Negative Balance Protection"
                 className={styles.image}
                 priority
               />
