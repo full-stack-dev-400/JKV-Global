@@ -2,7 +2,7 @@ import "./css/style.css";
 import "./css/global.css";
 
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
-// import ChatWidget from "@/components/chat/ChatWidget";
+import ChatWidget from "@/components/chat/ChatWidget";
 
 import { Inter } from "next/font/google";
 
@@ -29,7 +29,7 @@ export default function RootLayout({
         <ThemeProvider>
           {children}
 
-          {/* <ChatWidget /> */}
+          <ChatWidget />
         </ThemeProvider>
       </body>
     </html>

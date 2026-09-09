@@ -11,9 +11,7 @@ export default function HowItWorks() {
         <header className={styles.header}>
           <h2 className={`title ${styles.heading}`}>How It Works</h2>
 
-          <p className={styles.kicker}>
-            Getting Started with Stonefort Securities
-          </p>
+          <p className={styles.kicker}>Getting Started with JKV Global</p>
 
           <p className={styles.subtitle}>
             Follow our simple, step-by-step guide; create your account and begin

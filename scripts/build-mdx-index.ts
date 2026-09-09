@@ -21,7 +21,7 @@ type IndexFile = {
 const BASE_ROUTE = "";
 
 // where your MDX files live
-const CONTENT_GLOB = "content/**/*.mdx";
+const CONTENT_GLOB = "content/chatbot/**/*.mdx";
 
 // output JSON
 const OUT_FILE = path.join(process.cwd(), "public", "mdx-index.json");
@@ -42,7 +42,10 @@ function stripMd(md: string) {
 }
 
 function cleanHeading(h: string) {
-  return h.replace(/[*_~`]/g, "").replace(/^\s*#+\s*/, "").trim();
+  return h
+    .replace(/[*_~`]/g, "")
+    .replace(/^\s*#+\s*/, "")
+    .trim();
 }
 
 // IMPORTANT: slugify heading so ":" "&" "?" etc don't create broken/duplicate IDs
@@ -93,14 +96,19 @@ function splitByHeadings(markdown: string) {
   return sections;
 }
 
-function makeChunksFromFile(filePath: string, usedIds: Set<string>): DocChunk[] {
+function makeChunksFromFile(
+  filePath: string,
+  usedIds: Set<string>,
+): DocChunk[] {
   const raw = fs.readFileSync(filePath, "utf8");
   const { data, content } = matter(raw);
 
   const title = String(data.title ?? "");
 
   // slug from frontmatter OR filename
-  const rawSlug = String(data.slug ?? path.basename(filePath).replace(/\.mdx$/, ""));
+  const rawSlug = String(
+    data.slug ?? path.basename(filePath).replace(/\.mdx$/, ""),
+  );
 
   // URL: if slug already starts with "/", use it directly
   const url = rawSlug.startsWith("/") ? rawSlug : `${BASE_ROUTE}/${rawSlug}`;

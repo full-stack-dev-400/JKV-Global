@@ -27,54 +27,100 @@ export default function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+
   const [msgs, setMsgs] = useState<Msg[]>([
     {
       role: "bot",
-      text: "Hi! Ask me anything about Stonefort. I’ll answer only using official website content.",
+      text: "Hi! Welcome to JKV Global. Ask me about our account types, trading platforms, markets, deposits, withdrawals, regulation, or other information available on our official website.",
     },
   ]);
 
   const listRef = useRef<HTMLDivElement | null>(null);
-  const canSend = useMemo(() => input.trim().length > 0 && !loading, [input, loading]);
 
-  useEffect(() => setMounted(true), []);
+  const canSend = useMemo(
+    () => input.trim().length > 0 && !loading,
+    [input, loading],
+  );
+
+  /* =========================================================
+     MOUNT
+  ========================================================= */
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  /* =========================================================
+     AUTO SCROLL
+  ========================================================= */
 
   useEffect(() => {
     if (!open) return;
+
     requestAnimationFrame(() => {
-      listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: "smooth" });
+      listRef.current?.scrollTo({
+        top: listRef.current.scrollHeight,
+        behavior: "smooth",
+      });
     });
   }, [open, msgs.length]);
 
+  /* =========================================================
+     SEND MESSAGE
+  ========================================================= */
+
   async function send() {
     const message = input.trim();
+
     if (!message || loading) return;
 
     setInput("");
     setLoading(true);
-    setMsgs((prev) => [...prev, { role: "user", text: message }]);
+
+    setMsgs((prev) => [
+      ...prev,
+      {
+        role: "user",
+        text: message,
+      },
+    ]);
 
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message }),
+
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          message,
+        }),
       });
 
       const data = (await res.json()) as ApiResponse;
-      if (!res.ok) throw new Error(data?.reply || "Request failed");
+
+      if (!res.ok) {
+        throw new Error(data?.reply || "Request failed");
+      }
 
       setMsgs((prev) => [
         ...prev,
+
         {
           role: "bot",
-          text: data.reply || "I couldn’t find that in the website content.",
+
+          text:
+            data.reply ||
+            "I couldn’t find that information in the JKV Global website content.",
+
           sources: data.sources || [],
         },
       ]);
     } catch {
       setMsgs((prev) => [
         ...prev,
+
         {
           role: "bot",
           text: "Something went wrong. Please try again.",
@@ -85,57 +131,90 @@ export default function ChatWidget() {
     }
   }
 
+  /* =========================================================
+     KEYBOARD
+  ========================================================= */
+
   function onKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.key === "Enter") send();
-    if (e.key === "Escape") setOpen(false);
+    if (e.key === "Enter") {
+      send();
+    }
+
+    if (e.key === "Escape") {
+      setOpen(false);
+    }
   }
 
   if (!mounted) return null;
 
-  const ui = (
-    <div
-      className={styles.wrap}
-      data-open={open ? "1" : "0"}
+  /* =========================================================
+     CHATBOT UI
+  ========================================================= */
 
-    >
-      {/* Panel FIRST so it opens UPWARDS */}
+  const ui = (
+    <div className={styles.wrap} data-open={open ? "1" : "0"}>
+      {/* =====================================================
+          CHAT PANEL
+      ===================================================== */}
+
       <div
-        id="stonefort-chat-panel"
+        id="jkv-chat-panel"
         className={styles.panel}
         role="dialog"
-        aria-label="Chatbot"
-        // style={{ pointerEvents: open ? "auto" : "none" }}
+        aria-label="JKV Global Help"
       >
+        {/* ===================================================
+            HEADER
+        =================================================== */}
+
         <div className={styles.header}>
           <div className={styles.titleBlock}>
             <div className={styles.title}>
               <span className={styles.dot} aria-hidden="true" />
-              Stonefort Help
+              JKV Global Help
             </div>
-            <div className={styles.sub}>Answers come only from official site content</div>
+
+            <div className={styles.sub}>
+              Answers based on official JKV Global website content
+            </div>
           </div>
 
           <button
             type="button"
             className={styles.close}
             onClick={() => setOpen(false)}
-            aria-label="Close chat"
-            style={{ pointerEvents: "auto" }}
+            aria-label="Close JKV Global chat"
+            style={{
+              pointerEvents: "auto",
+            }}
           >
             ×
           </button>
         </div>
 
-        {/* Messages */}
+        {/* ===================================================
+            MESSAGES
+        =================================================== */}
+
         <div className={styles.list} ref={listRef}>
           {msgs.map((m, idx) => (
-            <div key={idx} className={`${styles.msg} ${m.role === "user" ? styles.user : styles.bot}`}>
+            <div
+              key={idx}
+              className={`${styles.msg} ${
+                m.role === "user" ? styles.user : styles.bot
+              }`}
+            >
               <div className={styles.bubble}>
                 <pre className={styles.text}>{m.text}</pre>
+
+                {/* ===========================================
+                    SOURCES
+                =========================================== */}
 
                 {m.role === "bot" && m.sources && m.sources.length > 0 && (
                   <div className={styles.sources}>
                     <div className={styles.sourcesTitle}>Sources</div>
+
                     <ul className={styles.sourcesList}>
                       {m.sources.slice(0, 4).map((s, i) => (
                         <li key={i} className={styles.sourceItem}>
@@ -144,9 +223,17 @@ export default function ChatWidget() {
                               {s.title}
                             </a>
                           ) : (
-                            <span className={styles.sourcePlain}>{s.title}</span>
+                            <span className={styles.sourcePlain}>
+                              {s.title}
+                            </span>
                           )}
-                          {s.heading ? <span className={styles.sourceMeta}> — {s.heading}</span> : null}
+
+                          {s.heading ? (
+                            <span className={styles.sourceMeta}>
+                              {" "}
+                              — {s.heading}
+                            </span>
+                          ) : null}
                         </li>
                       ))}
                     </ul>
@@ -155,6 +242,10 @@ export default function ChatWidget() {
               </div>
             </div>
           ))}
+
+          {/* =================================================
+              TYPING INDICATOR
+          ================================================= */}
 
           {loading && (
             <div className={`${styles.msg} ${styles.bot}`}>
@@ -169,169 +260,222 @@ export default function ChatWidget() {
           )}
         </div>
 
-        {/* Input footer */}
+        {/* ===================================================
+            INPUT FOOTER
+        =================================================== */}
+
         <div className={styles.footer}>
           <input
             className={styles.input}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={onKeyDown}
-            placeholder="Ask about account types, platforms, deposits, policies..."
+            placeholder="Ask about accounts, MT5, markets, deposits, withdrawals..."
             disabled={loading}
+            aria-label="Ask JKV Global"
           />
-          <button className={styles.send} onClick={send} disabled={!canSend}>
+
+          <button
+            type="button"
+            className={styles.send}
+            onClick={send}
+            disabled={!canSend}
+          >
             Send
           </button>
         </div>
       </div>
 
-      {/* ===== FAB: LIQUID WAVY RING (no SVG needed) ===== */}
- {/* ===== FAB: FLUFFY WAVY RING (SVG displacement) ===== */}
-<svg className={styles.fabSvg} aria-hidden="true">
-  <filter id="sf-fab-wobble" x="-35%" y="-35%" width="170%" height="170%">
-    <feTurbulence
-      type="fractalNoise"
-      baseFrequency="0.9"
-      numOctaves="2"
-      seed="8"
-      result="noise"
-    >
-      {/* This makes the “fluff” move all around */}
-      <animate
-        attributeName="baseFrequency"
-        dur="2.8s"
-        values="0.65;1.05;0.65"
-        repeatCount="indefinite"
-      />
-    </feTurbulence>
+      {/* =====================================================
+          SVG FILTER FOR FAB
+      ===================================================== */}
 
-    <feDisplacementMap
-      in="SourceGraphic"
-      in2="noise"
-      scale="18"
-      xChannelSelector="R"
-      yChannelSelector="G"
-    >
-      <animate
-        attributeName="scale"
-        dur="2.8s"
-        values="12;22;12"
-        repeatCount="indefinite"
-      />
-    </feDisplacementMap>
-  </filter>
-</svg>
-
-{/* ===== FAB: TRUE WAVY RING (SVG) ===== */}
-<button
-  type="button"
-  className={styles.fab}
-  data-open={open ? "1" : "0"}
-  onClick={() => setOpen((v) => !v)}
-  aria-expanded={open}
-  aria-controls="stonefort-chat-panel"
-  aria-label={open ? "Close chat" : "Open chat"}
-  style={{ pointerEvents: "auto" }}
->
-  {/* Wavy ring lives as SVG so the SHAPE becomes waves */}
-  <svg className={styles.fabRingSvg} viewBox="0 0 100 100" aria-hidden="true">
-    <defs>
-      <filter id="sfWavyStroke" x="-40%" y="-40%" width="180%" height="180%">
-        <feTurbulence
-          type="fractalNoise"
-          baseFrequency="0.012"
-          numOctaves="2"
-          seed="9"
-          result="noise"
+      <svg className={styles.fabSvg} aria-hidden="true">
+        <filter
+          id="jkv-fab-wobble"
+          x="-35%"
+          y="-35%"
+          width="170%"
+          height="170%"
         >
-          {/* noise motion = waves moving */}
-          <animate
-            attributeName="baseFrequency"
-            dur="2.4s"
-            values="0.010;0.016;0.010"
-            repeatCount="indefinite"
-          />
-        </feTurbulence>
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.9"
+            numOctaves="2"
+            seed="8"
+            result="noise"
+          >
+            <animate
+              attributeName="baseFrequency"
+              dur="2.8s"
+              values="0.65;1.05;0.65"
+              repeatCount="indefinite"
+            />
+          </feTurbulence>
 
-        <feDisplacementMap
-          in="SourceGraphic"
-          in2="noise"
-          scale="18"
-          xChannelSelector="R"
-          yChannelSelector="G"
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="noise"
+            scale="18"
+            xChannelSelector="R"
+            yChannelSelector="G"
+          >
+            <animate
+              attributeName="scale"
+              dur="2.8s"
+              values="12;22;12"
+              repeatCount="indefinite"
+            />
+          </feDisplacementMap>
+        </filter>
+      </svg>
+
+      {/* =====================================================
+          FLOATING CHAT BUTTON
+      ===================================================== */}
+
+      <button
+        type="button"
+        className={styles.fab}
+        data-open={open ? "1" : "0"}
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-controls="jkv-chat-panel"
+        aria-label={open ? "Close JKV Global chat" : "Open JKV Global chat"}
+        style={{
+          pointerEvents: "auto",
+        }}
+      >
+        {/* ===================================================
+            WAVY RING
+        =================================================== */}
+
+        <svg
+          className={styles.fabRingSvg}
+          viewBox="0 0 100 100"
+          aria-hidden="true"
         >
-          {/* wave intensity pulsing */}
-          <animate
-            attributeName="scale"
-            dur="2.4s"
-            values="14;22;14"
-            repeatCount="indefinite"
-          />
-        </feDisplacementMap>
-      </filter>
+          <defs>
+            {/* ===============================================
+                WAVY FILTER
+            =============================================== */}
 
-      {/* soft glow blur */}
-      <filter id="sfGlow" x="-40%" y="-40%" width="180%" height="180%">
-        <feGaussianBlur stdDeviation="1.2" result="b" />
-        <feMerge>
-          <feMergeNode in="b" />
-          <feMergeNode in="SourceGraphic" />
-        </feMerge>
-      </filter>
-    </defs>
+            <filter
+              id="jkvWavyStroke"
+              x="-40%"
+              y="-40%"
+              width="180%"
+              height="180%"
+            >
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.012"
+                numOctaves="2"
+                seed="9"
+                result="noise"
+              >
+                <animate
+                  attributeName="baseFrequency"
+                  dur="2.4s"
+                  values="0.010;0.016;0.010"
+                  repeatCount="indefinite"
+                />
+              </feTurbulence>
 
-    {/* rotate the WHOLE distorted ring, so waves travel around */}
-    <g filter="url(#sfWavyStroke)">
-      <animateTransform
-        attributeName="transform"
-        type="rotate"
-        from="0 50 50"
-        to="360 50 50"
-        dur="3.2s"
-        repeatCount="indefinite"
-      />
+              <feDisplacementMap
+                in="SourceGraphic"
+                in2="noise"
+                scale="18"
+                xChannelSelector="R"
+                yChannelSelector="G"
+              >
+                <animate
+                  attributeName="scale"
+                  dur="2.4s"
+                  values="14;22;14"
+                  repeatCount="indefinite"
+                />
+              </feDisplacementMap>
+            </filter>
 
-      {/* main ring stroke */}
-      <circle
-        cx="50"
-        cy="50"
-        r="38"
-        fill="none"
-        stroke="url(#sfGrad)"
-        strokeWidth="10"
-        strokeLinecap="round"
-      />
-    </g>
+            {/* ===============================================
+                GLOW FILTER
+            =============================================== */}
 
-    {/* gradient definition AFTER usage is OK in SVG */}
-    <defs>
-      <radialGradient id="sfGrad" cx="50%" cy="50%" r="60%">
-        <stop offset="0%" stopColor="rgba(140,240,255,0.95)" />
-        <stop offset="55%" stopColor="rgba(0,150,255,0.65)" />
-        <stop offset="100%" stopColor="rgba(30,90,255,0.45)" />
-      </radialGradient>
-    </defs>
+            <filter id="jkvGlow" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="1.2" result="blur" />
 
-    {/* extra outer glow ring */}
-    <g filter="url(#sfGlow)" opacity="0.75">
-      <circle
-        cx="50"
-        cy="50"
-        r="38"
-        fill="none"
-        stroke="rgba(80,220,255,0.55)"
-        strokeWidth="10"
-      />
-    </g>
-  </svg>
+              <feMerge>
+                <feMergeNode in="blur" />
 
-  {/* inner disk */}
-  <span className={styles.fabCore} aria-hidden="true">
-    <span className={styles.fabText}>{open ? "×" : "Hi"}</span>
-  </span>
-</button>
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
 
+            {/* ===============================================
+                JKV GLOBAL GRADIENT
+            =============================================== */}
 
+            <radialGradient id="jkvGrad" cx="50%" cy="50%" r="60%">
+              <stop offset="0%" stopColor="#7EF5D2" />
+
+              <stop offset="45%" stopColor="#20C997" />
+
+              <stop offset="80%" stopColor="#064F49" />
+
+              <stop offset="100%" stopColor="#F59A0A" />
+            </radialGradient>
+          </defs>
+
+          {/* ===============================================
+              MAIN ANIMATED RING
+          =============================================== */}
+
+          <g filter="url(#jkvWavyStroke)">
+            <animateTransform
+              attributeName="transform"
+              type="rotate"
+              from="0 50 50"
+              to="360 50 50"
+              dur="3.2s"
+              repeatCount="indefinite"
+            />
+
+            <circle
+              cx="50"
+              cy="50"
+              r="38"
+              fill="none"
+              stroke="url(#jkvGrad)"
+              strokeWidth="10"
+              strokeLinecap="round"
+            />
+          </g>
+
+          {/* ===============================================
+              OUTER GLOW
+          =============================================== */}
+
+          <g filter="url(#jkvGlow)" opacity="0.75">
+            <circle
+              cx="50"
+              cy="50"
+              r="38"
+              fill="none"
+              stroke="rgba(32, 201, 151, 0.55)"
+              strokeWidth="10"
+            />
+          </g>
+        </svg>
+
+        {/* ===================================================
+            INNER BUTTON
+        =================================================== */}
+
+        <span className={styles.fabCore} aria-hidden="true">
+          <span className={styles.fabText}>{open ? "×" : "Hi"}</span>
+        </span>
+      </button>
     </div>
   );
 
