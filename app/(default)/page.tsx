@@ -11,7 +11,7 @@ import Hero from "@/components/home/hero";
 import MarqueeTicker from "@/components/home/MarqueeTicker";
 import Features02 from "@/components/home/features-02";
 import Features03 from "@/components/features-03";
-import TestimonialsCarousel from "@/components/home/testimonials-carousel";
+
 import Features04 from "@/components/features-04";
 // import Pricing from "./pricing-section";
 import Testimonials from "@/components/testimonials";
@@ -74,7 +74,6 @@ export default function Home() {
       <FinalConversion />
       {/* <TrustedBrokerSection /> */}
 
-      {/* <TestimonialsCarousel /> */}
       {/* <Features02 /> */}
       {/* <ProductHeroSlider slides={slides} autoPlayMs={6500} /> */}
       {/* <Features03 /> */}
