@@ -9,16 +9,16 @@ export default function Logo() {
       aria-label="JKV Global Home"
     >
       <Image
-        src="/images/jkv-global-logo.png"
+        src="/images/jkvlatestlogo.png"
         alt="JKV Global"
         width={150}
-        height={52}
+        height={75}
         priority
         className="
           w-auto
-          h-[42px]
+          h-[75px]
           sm:h-[46px]
-          md:h-[52px]
+          md:h-[75px]
           object-contain
         "
       />

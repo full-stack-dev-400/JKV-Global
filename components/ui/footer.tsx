@@ -157,7 +157,7 @@ export default function Footer() {
             aria-label="JKV Global home"
           >
             <Image
-              src="/images/jkv-global-logo.png"
+              src="/images/jkvlatestlogo.png"
               alt="JKV Global"
               width={170}
               height={120}
