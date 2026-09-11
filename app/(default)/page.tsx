@@ -10,9 +10,15 @@ export const dynamic = "force-static";
 import Hero from "@/components/home/hero";
 import MarketUniverse from "@/components/home/MarketUniverse";
 import MarqueeTicker from "@/components/home/MarqueeTicker";
+
+import { ServicesSequence } from "@/components/home/ServicesSequence";
+
 import Features02 from "@/components/home/features-02";
 import Features03 from "@/components/features-03";
 import { WhyJKV } from "@/components/home/WhyJKV";
+
+import { SystemsInMotion } from "@/components/home/SystemsInMotion";
+
 import Features04 from "@/components/features-04";
 // import Pricing from "./pricing-section";
 import Testimonials from "@/components/testimonials";
@@ -64,9 +70,15 @@ export default function Home() {
       <MarqueeTicker speedSeconds={58} />
 
       <ExpandCards />
-      <MarketUniverse />
+      {/* <MarketUniverse /> */}
+      <ServicesSequence />
+
       <ProductsShowcase />
+
       <WhyJKV />
+
+      <SystemsInMotion />
+
       <EconomicCalendar />
       <PlatformsTabs />
       {/* <PricingBoxes /> */}
