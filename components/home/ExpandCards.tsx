@@ -397,7 +397,7 @@ const demoItems: ExpandItem[] = [
 
   {
     id: 2,
-    image: "/images/tier1Banking.webp",
+    image: "/images/jkvsheild.webp",
     number: "02",
     title: "Segregated Client Funds",
     body: (

@@ -1227,7 +1227,7 @@ export function ServicesSequence() {
             LARGE TITLE
         =================================================== */}
 
-        <h2 className="sr-only">Why JKV Global</h2>
+        <h2 className="sr-only">JKV Global Connects You to Global Markets</h2>
 
         <div
           aria-hidden="true"
