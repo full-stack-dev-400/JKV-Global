@@ -12,7 +12,7 @@ import MarketUniverse from "@/components/home/MarketUniverse";
 import MarqueeTicker from "@/components/home/MarqueeTicker";
 import Features02 from "@/components/home/features-02";
 import Features03 from "@/components/features-03";
-
+import { WhyJKV } from "@/components/home/WhyJKV";
 import Features04 from "@/components/features-04";
 // import Pricing from "./pricing-section";
 import Testimonials from "@/components/testimonials";
@@ -22,6 +22,7 @@ import Payment from "@/components/clients";
 import ExpandCards from "@/components/home/ExpandCards";
 import DiscoverOpportunities from "@/components/home/DiscoverOpportunities";
 import { PlatformsTabs } from "@/components/VerticalTabs";
+
 import EconomicCalendar from "@/components/home/EconomicCalendar";
 import HowToRegister from "@/components/market/HowToRegister";
 import BalanceGuard from "@/components/home/BalanceGuard";
@@ -65,6 +66,7 @@ export default function Home() {
       <ExpandCards />
       <MarketUniverse />
       <ProductsShowcase />
+      <WhyJKV />
       <EconomicCalendar />
       <PlatformsTabs />
       {/* <PricingBoxes /> */}
