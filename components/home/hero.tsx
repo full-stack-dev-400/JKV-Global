@@ -1,32 +1,34 @@
 import Image, { type StaticImageData } from "next/image";
 import styles from "./Hero.module.css";
 
-import HeroBg from "@/public/images/homeherobanner.webp";
-
-// JKV Global regulation
 import FlagMauritius from "@/public/images/flags/mauritius.png";
 
 export default function Hero() {
   return (
     <section className={`section ${styles.hero}`}>
-      {/* Background */}
+      {/* =====================================================
+          VIDEO BACKGROUND
+      ===================================================== */}
       <div className={styles.bg} aria-hidden="true">
-        <Image
-          src={HeroBg}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className={styles.bgImage}
-        />
+        <video
+          className={styles.bgVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster="/images/home-hero.webp"
+        >
+          <source src="/videos/home-hero.webm" type="video/webm" />
+          <source src="/videos/home-hero.mp4" type="video/mp4" />
+        </video>
 
-        <div className={styles.bgOverlay} aria-hidden="true" />
+        <div className={styles.bgOverlay} />
       </div>
 
-      {/* Decorative JKV glow */}
-      <div className={styles.brandGlow} aria-hidden="true" />
-
-      {/* Content */}
+      {/* =====================================================
+          HERO CONTENT
+      ===================================================== */}
       <div className={`container ${styles.container}`}>
         <div className={styles.top}>
           {/* Badge */}
@@ -36,7 +38,7 @@ export default function Hero() {
             </span>
           </div>
 
-          {/* Main Heading */}
+          {/* Heading */}
           <h1
             className={`heading ${styles.title}`}
             data-aos="fade-down"
@@ -58,7 +60,7 @@ export default function Hero() {
             journey clear, supported and straightforward.
           </p>
 
-          {/* CTAs */}
+          {/* Buttons */}
           <div
             className={styles.ctaRow}
             data-aos="fade-down"
@@ -81,7 +83,9 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Regulation */}
+        {/* =====================================================
+            REGULATION
+        ===================================================== */}
         <div className={styles.regRow} data-aos="fade-up" data-aos-delay="500">
           <RegBox
             label="FSC Mauritius"
@@ -143,7 +147,6 @@ function RegBox({
       </div>
 
       <span className={styles.statusDot} aria-hidden="true" />
-
       <span className={styles.regSheen} aria-hidden="true" />
     </div>
   );

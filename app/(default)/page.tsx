@@ -8,6 +8,7 @@ export const metadata = {
 export const dynamic = "force-static";
 
 import Hero from "@/components/home/hero";
+import MarketUniverse from "@/components/home/MarketUniverse";
 import MarqueeTicker from "@/components/home/MarqueeTicker";
 import Features02 from "@/components/home/features-02";
 import Features03 from "@/components/features-03";
@@ -58,8 +59,11 @@ export default function Home() {
   return (
     <>
       <Hero />
+
       <MarqueeTicker speedSeconds={58} />
+
       <ExpandCards />
+      <MarketUniverse />
       <ProductsShowcase />
       <EconomicCalendar />
       <PlatformsTabs />
